@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.eu.eark</groupId>
+        <artifactId>dm-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../dm-parent</relativePath>
+    </parent>
+
+    <artifactId>denormalize-db</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <name>E-ARK WP6 Denormalize DB Tool</name>
+    <description>Generate CSV from archived DB</description>
+
+    <scm>
+        <!-- need to duplucate from parent because site is adding another "artifactId" -->
+        <connection>scm:git:git://github.com/eark-project/${project.artifactId}.git</connection>
+        <developerConnection>scm:git:https://github.com/eark-project/${project.artifactId}.git</developerConnection>
+        <url>https://github.com/eark-project/${project.artifactId}</url>
+    </scm>
+
+    <properties>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
