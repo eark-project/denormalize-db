@@ -27,3 +27,21 @@ Ideas
 - aggregations following each dimension
 - dimension auto-detect by variation of column values
 - dimension auto-detect by typical data, e.g. timestamp, geo-coord, city/county-name? (need dictionary)
+
+* start with a single table
+    ** keep columns with meta data, from load/format
+    ** keep content of columns
+    ** derive meta data from content (date or id or sth)
+    ** know some facts about columns (number of unique values), which is sort of statistical data
+    ** find columns that always change together e.g. "zip and city" or "city and cntry"
+    ** predict fact or dimension and which dimension - tbd
+    ** sort columns of dimensions
+    ** aggregate fact/HBase primary column name idea, use <table>_<smallest dimension>_<next> and so on.
+    
+* have a table with a foreign key
+    ** expand columns of foreign table into table
+    ** mark new columns as meta data from original table
+    
+* table with more (simple) foreign keys recursively
+
+* m2n - tbd
