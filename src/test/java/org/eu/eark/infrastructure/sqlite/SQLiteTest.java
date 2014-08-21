@@ -4,18 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.sqlite.SQLiteConnection;
 
 /**
  * Example of SQLite usage to test infrastructure.
@@ -24,46 +20,18 @@ import org.junit.Test;
  */
 public class SQLiteTest {
 
-    private static final String DB_NAME = "test.db";
-
-    private Connection conn;
-
-    @BeforeClass
-    public static void initDriver() throws ClassNotFoundException {
-        Class.forName("org.sqlite.JDBC");
-    }
-
-    @Before
-    public void createConnection() throws SQLException {
-        conn = DriverManager.getConnection("jdbc:sqlite:" + DB_NAME);
-    }
-
-    @After
-    public void closeConnection() throws SQLException {
-        conn.close();
-    }
-
-    @After
-    public void dropDbFile() {
-        new File(DB_NAME).delete();
-    }
+    @Rule
+    public final SQLiteConnection conn = SQLiteConnection.toTempDB();
 
     @Test
     public void shouldInsertAndQuery() throws SQLException {
-        Statement stat = conn.createStatement();
-        try {
-            createTable(stat);
-
-            insertPeople();
-
-            selectPeople(stat);
-
-        } finally {
-            stat.close();
-        }
+        createTable();
+        insertPeople();
+        selectPeople();
     }
 
-    private void createTable(Statement stat) throws SQLException {
+    private void createTable() throws SQLException {
+        Statement stat = conn.createStatement();
         stat.executeUpdate("drop table if exists people;");
         stat.executeUpdate("create table people (name, occupation);");
     }
@@ -85,7 +53,8 @@ public class SQLiteTest {
         conn.setAutoCommit(true);
     }
 
-    private void selectPeople(Statement stat) throws SQLException {
+    private void selectPeople() throws SQLException {
+        Statement stat = conn.createStatement();
         ResultSet rs = stat.executeQuery("select * from people;");
         try {
             assertResultRow(rs, "Gandhi", "politics");
