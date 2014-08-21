@@ -1,4 +1,4 @@
-package org.eu.eark.denormalizedb;
+package org.eu.eark.infrastructure.junit;
 
 import static org.junit.Assert.assertEquals;
 
