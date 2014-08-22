@@ -22,12 +22,12 @@ public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
     }
 
     @Test
-    public void shouldKnowNumberOfColumns() {
+    public void shouldCountColumns() {
         assertEquals(3, table.numColumns());
     }
 
     @Test
-    public void shouldKnowUniqueValues() {
+    public void shouldCountUniqueValues() {
         assertEquals(600, table.column(0).numUniqueValues());
         assertEquals(599, table.column(1).numUniqueValues()); // 2 cities with same name
         assertEquals(109, table.column(2).numUniqueValues()); // 109 countries!
@@ -38,7 +38,7 @@ public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
     }
 
     @Test
-    public void shouldDenormalize() {
+    public void shouldReverseOrderColumnsForId() {
         assertEquals("city/103/Cape Coral/101", table.idColumn().value(100));
     }
 

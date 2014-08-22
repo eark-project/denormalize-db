@@ -20,7 +20,11 @@ public class Table {
         rows.add(values);
     }
 
-    public int numRecords() {
+    public Object[] row(int rowIndex) {
+        return rows.get(rowIndex);
+    }
+
+    public int numRows() {
         return rows.size();
     }
 

@@ -28,4 +28,7 @@ public class Column {
         return numUniqueValues() == allRows.size();
     }
 
+    public Object row(int rowIndex) {
+        return allRows.get(rowIndex)[colIndex];
+    }
 }
