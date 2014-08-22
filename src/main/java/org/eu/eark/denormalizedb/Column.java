@@ -24,4 +24,8 @@ public class Column {
         return uniqueValues.size();
     }
 
+    public boolean allValuesUnique() {
+        return numUniqueValues() == allRows.size();
+    }
+
 }

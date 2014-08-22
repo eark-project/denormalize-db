@@ -1,11 +1,20 @@
 package org.eu.eark.denormalizedb;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class Table {
 
     private final List<Object[]> rows = new ArrayList<Object[]>();
+    private final List<Column> columns = new ArrayList<Column>();
+    private String tableName;
+    private IdColumn idColumn;
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
 
     public void addRow(Object... values) {
         rows.add(values);
@@ -23,7 +32,46 @@ public class Table {
     }
 
     public Column column(int index) {
-        return new Column(rows, index);
+        if (columns.size() <= index) {
+            lazyLoadColumns(index);
+        }
+        return columns.get(index);
     }
 
+    private void lazyLoadColumns(int index) {
+        for (int i = columns.size(); i <= index; i++) {
+            columns.add(new Column(rows, i));
+        }
+    }
+
+    public int[] uniqueColumnOrder() {
+        final int[] uniqueCounts = new int[numColumns()];
+        Integer[] positions = new Integer[uniqueCounts.length];
+        for (int i = 0; i < uniqueCounts.length; i++) {
+            positions[i] = i;
+            uniqueCounts[i] = column(i).numUniqueValues();
+        }
+        Arrays.sort(positions, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return Integer.valueOf(uniqueCounts[o1]).compareTo(uniqueCounts[o2]);
+            }
+        });
+        return toPrimitiveArray(positions);
+    }
+
+    private int[] toPrimitiveArray(Integer[] wrappers) {
+        int[] primitives = new int[wrappers.length];
+        for (int i = 0; i < wrappers.length; i++) {
+            primitives[i] = wrappers[i];
+        }
+        return primitives;
+    }
+
+    public IdColumn idColumn() {
+        if (idColumn == null) {
+            idColumn = new IdColumn(tableName, rows, uniqueColumnOrder());
+        }
+        return idColumn;
+    }
 }

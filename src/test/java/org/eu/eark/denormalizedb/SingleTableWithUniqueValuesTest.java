@@ -1,6 +1,8 @@
 package org.eu.eark.denormalizedb;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 
@@ -14,6 +16,7 @@ public class SingleTableWithUniqueValuesTest extends AbstractTableTestCase {
         // CREATE TABLE country (
         //   country_id integer DEFAULT nextval('country_country_id_seq'::regclass) NOT NULL,
         //   country character varying(50) NOT NULL,
+        table.setTableName("country");
         loadSakilaTable("select country_id, country from country;");
     }
 
@@ -30,8 +33,15 @@ public class SingleTableWithUniqueValuesTest extends AbstractTableTestCase {
     @Test
     public void shouldKnowUniqueValues() {
         assertEquals(109, table.column(0).numUniqueValues());
+        assertEquals(109, table.column(1).numUniqueValues());
+
+        assertTrue(table.column(0).allValuesUnique());
+
+        assertArrayEquals(new int[] { 0, 1 }, table.uniqueColumnOrder());
     }
 
-    // load city from database, with meta information
-    // get denormalited lines by country_id
+    @Test
+    public void shouldCreateOrderedId() {
+        assertEquals("country/1/Afghanistan", table.idColumn().value(0));
+    }
 }
