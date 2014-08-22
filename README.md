@@ -22,8 +22,8 @@ Future
 - send queries to CHX and Solr and HBase parallel and reduce results for user
 - understand other formats like SIARD and EPP and HKI defined one.
 
-Ideas
------
+Implementation Ideas
+--------------------
 - aggregations following each dimension
 - dimension auto-detect by variation of column values
 - dimension auto-detect by typical data, e.g. timestamp, geo-coord, city/county-name? (need dictionary)
@@ -45,3 +45,19 @@ Ideas
 * table with more (simple) foreign keys recursively
 
 * m2n - tbd
+
+- how to export the denormalized data?
+  This is the goal. needs to be preaggregated and sorted by different aggregators counts descending
+  if any groups are found, then use each group
+
+Sakila
+------
+Table: County only 1 column data
+FK: Address -> city -> country
+m2n: film_category
+
+Resources
+---------
+
+* http://hstack.org/hbasecon-low-latency-olap-with-hbase/
+* http://msdn.microsoft.com/en-us/library/cc505841.aspx
