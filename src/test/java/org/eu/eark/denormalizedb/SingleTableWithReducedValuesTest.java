@@ -40,11 +40,9 @@ public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
 
     @Test
     public void shouldOverrideUniqueValuesByMetaData() {
-        ColumnMetaData uniqueValues = new ColumnMetaData();
-        uniqueValues.setUnique();
-        table.getMetaData().addColumn(uniqueValues);
-        table.getMetaData().addColumn(uniqueValues);
-        table.getMetaData().addColumn(uniqueValues);
+        table.getMetaData().getColumn(0).setUnique();
+        table.getMetaData().getColumn(1).setUnique();
+        table.getMetaData().getColumn(2).setUnique();
 
         assertTrue(table.column(0).allValuesUnique());
         assertTrue(table.column(1).allValuesUnique());
