@@ -1,7 +1,6 @@
 package org.eu.eark.denormalizedb;
 
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -9,11 +8,11 @@ import java.util.Set;
  */
 public class Column {
 
-    private final List<Object[]> allRows;
+    private final TableData allRows;
     private final int colIndex;
     private final Set<Object> uniqueValues = new LinkedHashSet<Object>();
 
-    public Column(List<Object[]> rows, int colIndex) {
+    public Column(TableData rows, int colIndex) {
         this.allRows = rows;
         this.colIndex = colIndex;
     }

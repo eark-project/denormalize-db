@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class Table {
 
-    private final List<Object[]> rows = new ArrayList<Object[]>();
-    private final List<Column> columns = new ArrayList<Column>();
     private final TableMetaData metaData = new TableMetaData();
+    private final TableData data = new TableData();
+    private final List<Column> columns = new ArrayList<Column>();
     private IdColumn idColumn;
 
     public TableMetaData getMetaData() {
@@ -21,22 +21,22 @@ public class Table {
     }
     
     public void addRow(Object... values) {
-        rows.add(values);
+        data.add(values);
     }
 
     public Object[] row(int rowIndex) {
-        return rows.get(rowIndex);
+        return data.get(rowIndex);
     }
 
     public int numRows() {
-        return rows.size();
+        return data.size();
     }
 
     public int numColumns() {
-        if (rows.size() == 0) {
+        if (numRows() == 0) {
             throw new IllegalStateException("no rows loaded");
         }
-        return rows.get(0).length;
+        return data.get(0).length;
     }
 
     public Column column(int index) {
@@ -48,7 +48,7 @@ public class Table {
 
     private void lazyLoadColumns(int index) {
         for (int i = columns.size(); i <= index; i++) {
-            columns.add(new Column(rows, i));
+            columns.add(new Column(data, i));
         }
     }
 
@@ -78,7 +78,7 @@ public class Table {
 
     public IdColumn idColumn() {
         if (idColumn == null) {
-            idColumn = new IdColumn(metaData, rows, uniqueColumnOrder());
+            idColumn = new IdColumn(metaData, data, uniqueColumnOrder());
         }
         return idColumn;
     }

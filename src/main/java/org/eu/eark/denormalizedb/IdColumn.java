@@ -1,31 +1,28 @@
 package org.eu.eark.denormalizedb;
 
-import java.util.List;
-
 /**
- * A special, derived column that generates String IDs for each table row.
- * The IDs are the values concatenated and sorted by a given order.
+ * A special, derived column that generates String IDs for each table row. The IDs are the values concatenated and sorted by a given order.
  * This is used to create HBase primary IDs that support aggregation by only using part of the key for a scan.
  */
 public class IdColumn {
 
     private static final String SEP = "/";
 
-    private final TableMetaData tableMetaData;
-    private final List<Object[]> rows;
+    private final TableMetaData metaData;
+    private final TableData data;
     private final int[] uniqueColumnOrder;
 
-    public IdColumn(TableMetaData tableMetaData, List<Object[]> rows, int[] uniqueColumnOrder) {
-        this.tableMetaData = tableMetaData;
-        this.rows = rows;
+    public IdColumn(TableMetaData tableMetaData, TableData rows, int[] uniqueColumnOrder) {
+        this.metaData = tableMetaData;
+        this.data = rows;
         this.uniqueColumnOrder = uniqueColumnOrder;
     }
 
     public String value(int rowIndex) {
-        Object[] row = rows.get(rowIndex);
+        Object[] row = data.get(rowIndex);
 
         StringBuilder buf = new StringBuilder();
-        buf.append(tableMetaData.getTableName());
+        buf.append(metaData.getTableName());
         for (int i = 0; i < uniqueColumnOrder.length; i++) {
             buf.append(SEP);
             buf.append(row[uniqueColumnOrder[i]]);
