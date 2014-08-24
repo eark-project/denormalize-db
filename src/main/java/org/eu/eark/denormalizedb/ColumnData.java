@@ -10,33 +10,33 @@ public class ColumnData implements Iterable<Object> {
     private final TableData table;
     private final int colIndex;
 
-    public ColumnData(TableData rows, int colIndex) {
-        this.table = rows;
+    public ColumnData(TableData table, int colIndex) {
+        this.table = table;
         this.colIndex = colIndex;
     }
 
     public Object row(int rowIndex) {
-        return table.get(rowIndex)[colIndex];
+        return table.get(rowIndex).get(colIndex);
     }
 
     @Override
     public Iterator<Object> iterator() {
         return new Iterator<Object>() {
-            private final Iterator<Object[]> tableValues = table.iterator();
+            private final Iterator<RowData> tableItr = table.iterator();
 
             @Override
             public boolean hasNext() {
-                return tableValues.hasNext();
+                return tableItr.hasNext();
             }
 
             @Override
             public Object next() {
-                return tableValues.next()[colIndex];
+                return tableItr.next().get(colIndex);
             }
 
             @Override
             public void remove() {
-                tableValues.remove();
+                tableItr.remove();
             }
         };
     }

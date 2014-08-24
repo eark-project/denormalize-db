@@ -47,7 +47,7 @@ public class SingleTableWithUniqueValuesTest extends AbstractTableTestCase {
 
     @Test
     public void shouldKeepRowValues() {
-        assertArrayEquals(new Object[] { 1, "Afghanistan" }, table.row(0));
+        assertEquals(1, table.column(0).row(0));
         assertEquals("Afghanistan", table.column(1).row(0));
     }
 }

@@ -22,8 +22,8 @@ public class Column {
 
     private void lazyFindUniqueValues() {
         if (uniqueValues.isEmpty()) {
-            for (Object values : data) {
-                uniqueValues.add(values);
+            for (Object value : data) {
+                uniqueValues.add(value);
             }
         }
     }

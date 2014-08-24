@@ -7,26 +7,24 @@ import java.util.List;
 /**
  * The actual data contained in a table, that is the values of all the rows.
  */
-public class TableData implements Iterable<Object[]> {
+public class TableData implements Iterable<RowData> {
 
-    private final List<Object[]> rows = new ArrayList<Object[]>();
-    // TODO RowData = Object[]
-    
-    public void add(Object... values) {
+    private final List<RowData> rows = new ArrayList<RowData>();
+
+    public void add(RowData values) {
         rows.add(values);
     }
 
-    public Object[] get(int rowIndex) {
+    public RowData get(int rowIndex) {
         return rows.get(rowIndex);
+    }
+
+    @Override
+    public Iterator<RowData> iterator() {
+        return rows.iterator();
     }
 
     public int size() {
         return rows.size();
     }
-
-    @Override
-    public Iterator<Object[]> iterator() {
-        return rows.iterator();
-    }
-
 }

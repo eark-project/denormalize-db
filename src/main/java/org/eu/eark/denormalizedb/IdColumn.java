@@ -19,13 +19,13 @@ public class IdColumn {
     }
 
     public String value(int rowIndex) {
-        Object[] row = data.get(rowIndex);
+        RowData row = data.get(rowIndex);
 
         StringBuilder buf = new StringBuilder();
         buf.append(metaData.getTableName());
         for (int i = 0; i < uniqueColumnOrder.length; i++) {
             buf.append(SEP);
-            buf.append(row[uniqueColumnOrder[i]]);
+            buf.append(row.get(uniqueColumnOrder[i]));
         }
 
         return buf.toString();

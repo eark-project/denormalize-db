@@ -21,10 +21,10 @@ public class Table {
     }
     
     public void addRow(Object... values) {
-        data.add(values);
+        data.add(new RowData(values));
     }
 
-    public Object[] row(int rowIndex) {
+    public RowData row(int rowIndex) {
         return data.get(rowIndex);
     }
 
@@ -36,7 +36,7 @@ public class Table {
         if (numRows() == 0) {
             throw new IllegalStateException("no rows loaded");
         }
-        return data.get(0).length;
+        return data.get(0).size();
     }
 
     public Column column(int index) {
