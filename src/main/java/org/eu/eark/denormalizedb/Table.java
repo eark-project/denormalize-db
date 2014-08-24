@@ -5,6 +5,10 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * A table in a relational schema. A table holds the columns and their meta-data
+ * as well as the table's data itself (the "rows").
+ */
 public class Table {
 
     private final List<Object[]> rows = new ArrayList<Object[]>();

@@ -2,6 +2,11 @@ package org.eu.eark.denormalizedb;
 
 import java.util.List;
 
+/**
+ * A special, derived column that generates String IDs for each table row.
+ * The IDs are the values concatenated and sorted by a given order.
+ * This is used to create HBase primary IDs that support aggregation by only using part of the key for a scan.
+ */
 public class IdColumn {
 
     private static final String SEP = "/";

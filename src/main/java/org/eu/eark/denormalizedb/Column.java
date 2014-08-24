@@ -4,6 +4,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * A column of a table in a relational schema. A column holds the column meta-data and column's data.
+ */
 public class Column {
 
     private final List<Object[]> allRows;
