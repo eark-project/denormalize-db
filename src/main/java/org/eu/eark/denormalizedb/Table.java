@@ -48,7 +48,7 @@ public class Table {
 
     private void lazyLoadColumns(int index) {
         for (int i = columns.size(); i <= index; i++) {
-            columns.add(new Column(data, i));
+            columns.add(new Column(new ColumnData(data, i)));
         }
     }
 

@@ -8,29 +8,31 @@ import java.util.Set;
  */
 public class Column {
 
-    private final TableData allRows;
-    private final int colIndex;
+    private final ColumnData data;
     private final Set<Object> uniqueValues = new LinkedHashSet<Object>();
 
-    public Column(TableData rows, int colIndex) {
-        this.allRows = rows;
-        this.colIndex = colIndex;
+    public Column(ColumnData data) {
+        this.data = data;
     }
 
     public int numUniqueValues() {
-        if (uniqueValues.isEmpty()) {
-            for (Object[] values : allRows) {
-                uniqueValues.add(values[colIndex]);
-            }
-        }
+        lazyFindUniqueValues();
         return uniqueValues.size();
     }
 
+    private void lazyFindUniqueValues() {
+        if (uniqueValues.isEmpty()) {
+            for (Object values : data) {
+                uniqueValues.add(values);
+            }
+        }
+    }
+
     public boolean allValuesUnique() {
-        return numUniqueValues() == allRows.size();
+        return numUniqueValues() == data.size();
     }
 
     public Object row(int rowIndex) {
-        return allRows.get(rowIndex)[colIndex];
+        return data.row(rowIndex);
     }
 }
