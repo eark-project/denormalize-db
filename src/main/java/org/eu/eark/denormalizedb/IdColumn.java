@@ -11,12 +11,12 @@ public class IdColumn {
 
     private static final String SEP = "/";
 
-    private final String tableName;
+    private final TableMetaData tableMetaData;
     private final List<Object[]> rows;
     private final int[] uniqueColumnOrder;
 
-    public IdColumn(String tableName, List<Object[]> rows, int[] uniqueColumnOrder) {
-        this.tableName = tableName;
+    public IdColumn(TableMetaData tableMetaData, List<Object[]> rows, int[] uniqueColumnOrder) {
+        this.tableMetaData = tableMetaData;
         this.rows = rows;
         this.uniqueColumnOrder = uniqueColumnOrder;
     }
@@ -25,7 +25,7 @@ public class IdColumn {
         Object[] row = rows.get(rowIndex);
 
         StringBuilder buf = new StringBuilder();
-        buf.append(tableName);
+        buf.append(tableMetaData.getTableName());
         for (int i = 0; i < uniqueColumnOrder.length; i++) {
             buf.append(SEP);
             buf.append(row[uniqueColumnOrder[i]]);

@@ -16,7 +16,7 @@ public class SingleTableWithUniqueValuesTest extends AbstractTableTestCase {
         // CREATE TABLE country (
         //   country_id integer DEFAULT nextval('country_country_id_seq'::regclass) NOT NULL,
         //   country character varying(50) NOT NULL,
-        table.setTableName("country");
+        table.getMetaData().setTableName("country");
         loadSakilaTable("select country_id, country from country;");
     }
 

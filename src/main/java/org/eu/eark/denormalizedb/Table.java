@@ -13,13 +13,13 @@ public class Table {
 
     private final List<Object[]> rows = new ArrayList<Object[]>();
     private final List<Column> columns = new ArrayList<Column>();
-    private String tableName;
+    private final TableMetaData metaData = new TableMetaData();
     private IdColumn idColumn;
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
+    public TableMetaData getMetaData() {
+        return metaData;
     }
-
+    
     public void addRow(Object... values) {
         rows.add(values);
     }
@@ -78,7 +78,7 @@ public class Table {
 
     public IdColumn idColumn() {
         if (idColumn == null) {
-            idColumn = new IdColumn(tableName, rows, uniqueColumnOrder());
+            idColumn = new IdColumn(metaData, rows, uniqueColumnOrder());
         }
         return idColumn;
     }
