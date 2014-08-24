@@ -5,7 +5,18 @@ package org.eu.eark.denormalizedb;
  */
 public class ColumnMetaData {
 
+    private static final String DEFAULT_COLUMN_NAME = null;
+
+    private String columnName = DEFAULT_COLUMN_NAME;
     private boolean unique;
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
 
     public boolean isUnique() {
         return unique;
