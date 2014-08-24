@@ -8,14 +8,19 @@ import java.util.Set;
  */
 public class Column {
 
+    private final ColumnMetaData metaData;
     private final ColumnData data;
     private final Set<Object> uniqueValues = new LinkedHashSet<Object>();
 
-    public Column(ColumnData data) {
+    public Column(ColumnMetaData metaData, ColumnData data) {
+        this.metaData = metaData;
         this.data = data;
     }
 
     public int numUniqueValues() {
+        if (metaData.isUnique()) {
+            return data.size();
+        }
         lazyFindUniqueValues();
         return uniqueValues.size();
     }

@@ -3,6 +3,7 @@ package org.eu.eark.denormalizedb;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 
@@ -35,6 +36,19 @@ public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
         assertFalse(table.column(2).allValuesUnique());
 
         assertArrayEquals(new int[] { 2, 1, 0 }, table.uniqueColumnOrder());
+    }
+
+    @Test
+    public void shouldOverrideUniqueValuesByMetaData() {
+        ColumnMetaData uniqueValues = new ColumnMetaData();
+        uniqueValues.setUnique();
+        table.getMetaData().addColumn(uniqueValues);
+        table.getMetaData().addColumn(uniqueValues);
+        table.getMetaData().addColumn(uniqueValues);
+
+        assertTrue(table.column(0).allValuesUnique());
+        assertTrue(table.column(1).allValuesUnique());
+        assertTrue(table.column(2).allValuesUnique());
     }
 
     @Test
