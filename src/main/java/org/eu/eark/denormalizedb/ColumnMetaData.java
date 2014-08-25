@@ -9,6 +9,8 @@ public class ColumnMetaData {
 
     private String columnName = DEFAULT_COLUMN_NAME;
     private boolean unique;
+    private Reference reference;
+
     // TODO other meta data like PK, FK to Table x, type (enum?), etc.
     // look into Estonian database what is provided...
 
@@ -26,6 +28,14 @@ public class ColumnMetaData {
 
     public void setUnique() {
         unique = true;
+    }
+
+    public void references(Table table, int colIndex) {
+        reference = new Reference(table, colIndex);
+    }
+
+    public Reference getReference() {
+        return reference;
     }
 
 }

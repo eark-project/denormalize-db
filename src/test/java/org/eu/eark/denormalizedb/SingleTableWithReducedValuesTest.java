@@ -12,6 +12,8 @@ import org.junit.Test;
 
 public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
 
+    private final Table table = new Table();
+
     @Before
     public void loadCityData() throws SQLException {
         // CREATE TABLE city (
@@ -19,7 +21,7 @@ public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
         //         city character varying(50) NOT NULL,
         //         country_id smallint NOT NULL,
         table.getMetaData().setTableName("city");
-        loadSakilaTable("select city_id, city, country_id from city;");
+        loadSakilaTable(table, "select city_id, city, country_id from city;");
     }
 
     @Test

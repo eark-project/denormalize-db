@@ -13,22 +13,20 @@ public abstract class AbstractTableTestCase {
     @Rule
     public final SakilaConnection conn = new SakilaConnection();
 
-    protected final Table table = new Table();
-
-    protected void loadSakilaTable(String query) throws SQLException {
+    protected void loadSakilaTable(Table table, String query) throws SQLException {
         Statement stat = conn.createStatement();
         ResultSet rs = stat.executeQuery(query);
         try {
             ResultSetMetaData jdbcMetaData = rs.getMetaData();
-            setColumnMetaData(jdbcMetaData);
+            setColumnMetaData(table, jdbcMetaData);
 
-            setTableData(rs);
+            setTableData(table, rs);
         } finally {
             rs.close();
         }
     }
 
-    private void setColumnMetaData(ResultSetMetaData jdbcMetaData) throws SQLException {
+    private void setColumnMetaData(Table table, ResultSetMetaData jdbcMetaData) throws SQLException {
         int colCount = jdbcMetaData.getColumnCount();
         for (int i = 0; i < colCount; i++) {
             ColumnMetaData column = new ColumnMetaData();
@@ -37,7 +35,7 @@ public abstract class AbstractTableTestCase {
         }
     }
 
-    private void setTableData(ResultSet rs) throws SQLException {
+    private void setTableData(Table table, ResultSet rs) throws SQLException {
         ResultSetMetaData jdbcMetaData = rs.getMetaData();
         int colCount = jdbcMetaData.getColumnCount();
 

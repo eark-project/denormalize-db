@@ -11,13 +11,15 @@ import org.junit.Test;
 
 public class SingleTableWithUniqueValuesTest extends AbstractTableTestCase {
 
+    private final Table table = new Table();
+
     @Before
     public void loadCountryData() throws SQLException {
         // CREATE TABLE country (
         //   country_id integer DEFAULT nextval('country_country_id_seq'::regclass) NOT NULL,
         //   country character varying(50) NOT NULL,
         table.getMetaData().setTableName("country");
-        loadSakilaTable("select country_id, country from country;");
+        loadSakilaTable(table, "select country_id, country from country;");
     }
 
     @Test
