@@ -7,26 +7,34 @@ public class Column {
 
     private final ColumnMetaData metaData;
     private final ColumnData data;
-    private final ColumnAnalytics summary;
+    private final ColumnAnalytics analytics;
 
     public Column(ColumnMetaData metaData, ColumnData data) {
         this.metaData = metaData;
         this.data = data;
-        this.summary = new ColumnAnalytics(data);
+        this.analytics = new ColumnAnalytics(data);
+    }
+
+    public ColumnMetaData getMetaData() {
+        return metaData;
+    }
+
+    public ColumnAnalytics getAnalytics() {
+        return analytics;
     }
 
     public int numUniqueValues() {
         if (metaData.isUnique()) {
             return data.size();
         }
-        return summary.numUniqueValues();
+        return analytics.numUniqueValues();
     }
 
     public boolean allValuesUnique() {
         if (metaData.isUnique()) {
             return true;
         }
-        return summary.allValuesUnique();
+        return analytics.allValuesUnique();
     }
 
     public Object row(int rowIndex) {

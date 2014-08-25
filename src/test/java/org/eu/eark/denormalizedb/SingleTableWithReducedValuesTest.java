@@ -34,10 +34,21 @@ public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
         assertEquals(109, table.column(2).numUniqueValues()); // 109 countries!
 
         assertFalse(table.column(2).allValuesUnique());
+    }
 
+    @Test
+    public void shouldSortByNumberOfUniqueValues() {
         assertArrayEquals(new int[] { 2, 1, 0 }, table.uniqueColumnOrder());
     }
 
+    @Test
+    public void shouldCountOccurancesOfUniqueValues() {
+        int countryId = 2;
+        int austria = 9;
+        assertEquals(3, table.column(countryId).getAnalytics().numOccurances(austria));
+        // Graz, Linz, Salzburg
+    }
+    
     @Test
     public void shouldOverrideUniqueValuesByMetaData() {
         table.getMetaData().getColumn(0).setUnique();

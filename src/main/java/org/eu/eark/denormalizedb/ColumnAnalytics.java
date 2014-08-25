@@ -1,7 +1,7 @@
 package org.eu.eark.denormalizedb;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Container for simple analytical (meta) data about a column's data like unique or histograms.
@@ -9,7 +9,7 @@ import java.util.Set;
 public class ColumnAnalytics {
 
     private final ColumnData data;
-    private final Set<Object> uniqueValues = new LinkedHashSet<Object>();
+    private final Map<Object, Integer> uniqueValues = new LinkedHashMap<Object, Integer>();
 
     public ColumnAnalytics(ColumnData data) {
         this.data = data;
@@ -23,13 +23,19 @@ public class ColumnAnalytics {
     private void lazyFindUniqueValues() {
         if (uniqueValues.isEmpty()) {
             for (Object value : data) {
-                uniqueValues.add(value);
+                int current = uniqueValues.containsKey(value) ? uniqueValues.get(value) : 0;
+                uniqueValues.put(value, current + 1);
             }
         }
     }
 
     public boolean allValuesUnique() {
         return numUniqueValues() == data.size();
+    }
+
+    public int numOccurances(Object value) {
+        lazyFindUniqueValues();
+        return uniqueValues.get(value);
     }
 
 }
