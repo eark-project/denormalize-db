@@ -68,10 +68,10 @@ public class Table {
                 return Integer.valueOf(uniqueCounts[o1]).compareTo(uniqueCounts[o2]);
             }
         });
-        return toPrimitiveArray(positions);
+        return toPrimitive(positions);
     }
 
-    private int[] toPrimitiveArray(Integer[] wrappers) {
+    private int[] toPrimitive(Integer[] wrappers) {
         int[] primitives = new int[wrappers.length];
         for (int i = 0; i < wrappers.length; i++) {
             primitives[i] = wrappers[i];
