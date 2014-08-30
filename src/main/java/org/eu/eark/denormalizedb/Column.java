@@ -44,6 +44,10 @@ public class Column {
     public Object[] rows(int[] rowIndexes) {
         return data.rows(rowIndexes);
     }
+
+    public Object[] rows() {
+        return data.rows();
+    }
     
     public int indexOf(Object value) {
         return data.indexOf(value);

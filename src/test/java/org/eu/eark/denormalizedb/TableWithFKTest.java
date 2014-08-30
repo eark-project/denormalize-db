@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import java.sql.SQLException;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class TableWithFKTest extends AbstractTableTestCase {
@@ -30,33 +29,61 @@ public class TableWithFKTest extends AbstractTableTestCase {
         table = explode(cityTable);
     }
 
-    private Table explode(Table sourceTable) {
-        Table t = new Table();
+    private Table explode(Table source) {
+        Table target = new Table();
 
-        t.getMetaData().setTableName(sourceTable.getMetaData().getTableName());
+        copyTableName(source, target);
+        copyColumnsMetaData(source, target);
+        copyRows(source, target);
 
-        for (ColumnMetaData cmd : sourceTable.getMetaData().columns()) {
-            t.getMetaData().addColumn(cmd);
+        copyAllReferencedData(source, target);
+
+        return target;
+    }
+
+    private void copyTableName(Table source, Table target) {
+        target.getMetaData().setTableName(source.getMetaData().getTableName());
+    }
+
+    private void copyColumnsMetaData(Table source, Table target) {
+        for (ColumnMetaData cmd : source.getMetaData().columns()) {
+            target.getMetaData().addColumn(cmd);
         }
+    }
 
-        for (ColumnMetaData cmd : sourceTable.getMetaData().columns()) {
+    private void copyRows(Table source, Table target) {
+        for (RowData row : source.rows()) {
+            target.addRow(row);
+        }
+    }
+
+    private void copyAllReferencedData(Table source, Table target) {
+        int colIndex = 0;
+        for (ColumnMetaData cmd : source.getMetaData().columns()) {
             Reference reference = cmd.getReference();
-            if (reference != null) {
-                Table referencedTable = reference.getTable();
-                int referencedColIndex = reference.getColIndex();
-
-                for (int colIndex = 0; colIndex < referencedTable.numColumns(); colIndex++) {
-                    // skip ID of FK because it is the same
-                    if (colIndex == referencedColIndex) {
-                        continue;
-                    }
-                    // else add all other data columns
-                    t.getMetaData().addColumn(referencedTable.getMetaData().getColumn(colIndex));
-                }
+            boolean hasFK = reference != null;
+            if (hasFK) {
+                copyAllColumnsMetaDataFromReferencedTable(reference, target);
+                copyAllDataFromReferencedTable(source, colIndex, reference, target);
             }
+            colIndex++;
         }
+    }
 
-        return t;
+    private void copyAllDataFromReferencedTable(Table source, int colIndex, Reference foreignKey, Table target) {
+        Object[] fks = source.column(colIndex).rows();
+        int[] referencedRows = foreignKey.getTable().column(foreignKey.getColIndex()).indexesOf(fks);
+        RowData[] values = source.rows(referencedRows);
+        target.extendWith(values);
+    }
+
+    private void copyAllColumnsMetaDataFromReferencedTable(Reference foreignKey, Table target) {
+        Table referencedTable = foreignKey.getTable();
+
+        for (int colIndex = 0; colIndex < referencedTable.numColumns(); colIndex++) {
+            ColumnMetaData cmd = referencedTable.getMetaData().getColumn(colIndex);
+            target.getMetaData().addColumn(cmd);
+        }
     }
 
     @Test
@@ -67,22 +94,20 @@ public class TableWithFKTest extends AbstractTableTestCase {
     @Test
     public void shouldAddMetaDataColumnsOfReferencesTable() {
         int newColumnIndex = 3;
-        ColumnMetaData newColumn = table.getMetaData().getColumn(newColumnIndex);
-        assertEquals("country", newColumn.getColumnName());
-        assertEquals(1, newColumn.getSelfReference().getColIndex());
+        ColumnMetaData newIdColumn = table.getMetaData().getColumn(newColumnIndex);
+        assertEquals("country_id", newIdColumn.getColumnName());
+        assertEquals(0, newIdColumn.getSelfReference().getColIndex());
         // TODO meta column with info on FK references, e.g. # of total used
     }
 
-    @Test @Ignore
+    @Test
     public void shouldAddDataColumnsOfReferencesTable() {
-        int newColumnIndex = 3;
-        Column newColumn = table.column(newColumnIndex);
-        assertNotNull(newColumn);
-        assertEquals("xxx", newColumn.row(0)); // 87th country
+        int newColumnIndex = 4;
+        Column newNameColumn = table.column(newColumnIndex);
+        assertNotNull(newNameColumn);
+        assertEquals("Botshabelo", newNameColumn.row(0)); // 87th country
     }
-    
-    // shouldAddDataOfReferencesTableToRow
-    
+
     // TODO new column which has only values that were used, so reduced in size or exploded in size
 
 }

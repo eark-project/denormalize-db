@@ -22,14 +22,30 @@ public class Table {
         return metaData;
     }
     
+    public void addRow(RowData values) {
+        data.add(values);
+    }
+
     public void addRow(Object... values) {
         data.add(new RowData(values));
     }
-
+    
     public RowData row(int rowIndex) {
         return data.get(rowIndex);
     }
 
+    public RowData[] rows(int[] rowIndex) {
+        return data.get(rowIndex);
+    }
+
+    public Iterable<RowData> rows() {
+        return data;
+    }
+
+    public void extendWith(RowData[] values) {
+        data.join(values);
+    }
+    
     public int numRows() {
         return data.size();
     }
@@ -79,4 +95,5 @@ public class Table {
         }
         return idColumn;
     }
+
 }
