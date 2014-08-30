@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import org.eu.eark.denormalizedb.util.Wrapping;
+
 /**
  * A table in a relational schema. A table holds the columns and their meta-data
  * as well as the table's data itself (the "rows").
@@ -68,15 +70,7 @@ public class Table {
                 return Integer.valueOf(uniqueCounts[o1]).compareTo(uniqueCounts[o2]);
             }
         });
-        return toPrimitive(positions);
-    }
-
-    private int[] toPrimitive(Integer[] wrappers) {
-        int[] primitives = new int[wrappers.length];
-        for (int i = 0; i < wrappers.length; i++) {
-            primitives[i] = wrappers[i];
-        }
-        return primitives;
+        return Wrapping.toPrimitive(positions);
     }
 
     public IdColumn idColumn() {

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.eu.eark.denormalizedb.util.Wrapping;
+
 /**
  * The actual data contained in a column.
  */
@@ -25,14 +27,7 @@ public class ColumnData implements Iterable<Object> {
     public int indexOf(Object value) {
         lazyFillLookup();
         Integer row = rowByValue.get(value);
-        return toPrimitive(row, "object [" + value + "] not found in column");
-    }
-
-    private int toPrimitive(Integer row, String exceptionIfImpossible) {
-        if (row == null) {
-            throw new IllegalStateException(exceptionIfImpossible);
-        }
-        return row;
+        return Wrapping.toPrimitive(row, "object [" + value + "] not found in column");
     }
 
     private void lazyFillLookup() {
@@ -50,6 +45,15 @@ public class ColumnData implements Iterable<Object> {
             return;
         }
         rowByValue.put(value, inRow);
+    }
+
+    public int[] indexesOf(Object[] values) {
+        lazyFillLookup();
+        Integer[] rowNums = new Integer[values.length];
+        for (int i = 0; i < values.length; i++) {
+            rowNums[i] = rowByValue.get(values[i]);
+        }
+        return Wrapping.toPrimitive(rowNums);
     }
 
     @Override

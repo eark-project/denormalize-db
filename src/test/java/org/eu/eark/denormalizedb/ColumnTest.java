@@ -1,5 +1,6 @@
 package org.eu.eark.denormalizedb;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import java.sql.SQLException;
@@ -24,13 +25,26 @@ public class ColumnTest extends AbstractTableTestCase {
 
     @Test
     public void shouldHaveColumnValues() {
-        assertEquals(1, table.column(0).row(0));
-        assertEquals("Afghanistan", table.column(1).row(0));
+        assertEquals(1, idColumn().row(0));
+        assertEquals("Afghanistan", nameColumn().row(0));
     }
-    
+
+    private Column idColumn() {
+        return table.column(0);
+    }
+
+    private Column nameColumn() {
+        return table.column(1);
+    }
+
     @Test
     public void shouldFindFirstRowNumForValue() {
-        assertEquals(1, table.column(0).indexOf(2));
-        assertEquals(1, table.column(1).indexOf("Algeria"));
+        assertEquals(1, idColumn().indexOf(2));
+        assertEquals(1, nameColumn().indexOf("Algeria"));
+    }
+
+    @Test
+    public void shouldFindVectorOfRowNumsForValues() {
+        assertArrayEquals(new int[] { 3, 1 }, nameColumn().indexesOf("Angola", "Algeria"));
     }
 }

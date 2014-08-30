@@ -44,4 +44,8 @@ public class Column {
     public int indexOf(Object value) {
         return data.indexOf(value);
     }
+
+    public int[] indexesOf(Object... values) {
+        return data.indexesOf(values);
+    }
 }
