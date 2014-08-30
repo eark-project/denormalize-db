@@ -66,9 +66,11 @@ public class TableWithFKTest extends AbstractTableTestCase {
 
     @Test
     public void shouldAddMetaDataColumnsOfReferencesTable() {
-        int newColumn = 3;
-        assertEquals("country", table.getMetaData().getColumn(newColumn).getColumnName());
-        // TODO adds a copy meta column, which has same meta values but also original table name and info on FK references, e.g. # of total used
+        int newColumnIndex = 3;
+        ColumnMetaData newColumn = table.getMetaData().getColumn(newColumnIndex);
+        assertEquals("country", newColumn.getColumnName());
+        assertEquals(1, newColumn.getSelfReference().getColIndex());
+        // TODO meta column with info on FK references, e.g. # of total used
     }
 
     @Test @Ignore

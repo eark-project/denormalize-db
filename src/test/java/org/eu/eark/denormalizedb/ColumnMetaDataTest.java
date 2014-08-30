@@ -33,8 +33,8 @@ public class ColumnMetaDataTest extends AbstractTableTestCase {
     @Test
     public void shouldKnowItsTableAndColIndex() {
         ColumnMetaData columnZero = table.getMetaData().getColumn(0);
-        assertSame(table, columnZero.selfReference().getTable());
-        assertEquals(0, columnZero.selfReference().getColIndex());
+        assertSame(table, columnZero.getSelfReference().getTable());
+        assertEquals(0, columnZero.getSelfReference().getColIndex());
     }
 
 }

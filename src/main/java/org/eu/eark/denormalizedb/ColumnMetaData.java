@@ -23,7 +23,7 @@ public class ColumnMetaData {
         this.columnName = columnName;
     }
 
-    public Reference selfReference() {
+    public Reference getSelfReference() {
         return selfReference;
     }
 
