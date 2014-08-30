@@ -47,4 +47,9 @@ public class ColumnTest extends AbstractTableTestCase {
     public void shouldFindVectorOfRowNumsForValues() {
         assertArrayEquals(new int[] { 3, 1 }, nameColumn().indexesOf("Angola", "Algeria"));
     }
+
+    @Test
+    public void shouldFindValuesForVectorOfRowNums() {
+        assertArrayEquals(new String[] { "Angola", "Algeria" }, nameColumn().rows(new int[] { 3, 1 }));
+    }
 }

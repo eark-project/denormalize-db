@@ -24,6 +24,14 @@ public class ColumnData implements Iterable<Object> {
         return table.get(rowIndex).get(colIndex);
     }
 
+    public Object[] rows(int[] rowIndexes) {
+        Object[] values = new Object[rowIndexes.length];
+        for (int i = 0; i < values.length; i++) {
+            values[i] = row(rowIndexes[i]);
+        }
+        return values;
+    }
+
     public int indexOf(Object value) {
         lazyFillLookup();
         Integer row = rowByValue.get(value);
