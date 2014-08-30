@@ -40,6 +40,9 @@ public class Table {
     }
 
     public Column column(int index) {
+        if (index >= numColumns()) {
+            throw new ArrayIndexOutOfBoundsException(index);
+        }
         if (columns.size() <= index) {
             lazyLoadColumns(index);
         }

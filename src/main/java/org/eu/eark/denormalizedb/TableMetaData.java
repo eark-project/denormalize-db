@@ -1,6 +1,7 @@
 package org.eu.eark.denormalizedb;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -32,6 +33,15 @@ public class TableMetaData {
             return DEFAULT_COLUMN_META_DATA;
         }
         return columns.get(colIndex);
+    }
+
+    public Iterable<ColumnMetaData> columns() {
+        return new Iterable<ColumnMetaData>() {
+            @Override
+            public Iterator<ColumnMetaData> iterator() {
+                return columns.iterator();
+            }
+        };
     }
 
 }
