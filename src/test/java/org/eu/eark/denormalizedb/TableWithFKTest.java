@@ -75,9 +75,14 @@ public class TableWithFKTest extends AbstractTableTestCase {
 
     @Test @Ignore
     public void shouldAddDataColumnsOfReferencesTable() {
-        int newColumn = 3;
-        assertNotNull(table.column(newColumn));
-        // TODO new column which has only values that were used, so reduced in size or exploded in size
+        int newColumnIndex = 3;
+        Column newColumn = table.column(newColumnIndex);
+        assertNotNull(newColumn);
+        assertEquals("xxx", newColumn.row(0)); // 87th country
     }
+    
+    // shouldAddDataOfReferencesTableToRow
+    
+    // TODO new column which has only values that were used, so reduced in size or exploded in size
 
 }

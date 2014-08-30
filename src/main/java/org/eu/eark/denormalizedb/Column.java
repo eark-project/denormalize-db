@@ -40,4 +40,8 @@ public class Column {
     public Object row(int rowIndex) {
         return data.row(rowIndex);
     }
+
+    public int indexOf(Object value) {
+        return data.indexOf(value);
+    }
 }

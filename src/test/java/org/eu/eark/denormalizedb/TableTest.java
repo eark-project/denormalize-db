@@ -22,14 +22,4 @@ public class TableTest extends AbstractTableTestCase {
         assertEquals(109, table.numRows());
     }
 
-    @Test
-    public void shouldHaveColumns() {
-        assertEquals(2, table.numColumns());
-    }
-
-    @Test
-    public void shouldHaveColumnValues() {
-        assertEquals(1, table.column(0).row(0));
-        assertEquals("Afghanistan", table.column(1).row(0));
-    }
 }
