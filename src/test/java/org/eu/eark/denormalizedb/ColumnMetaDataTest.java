@@ -1,5 +1,7 @@
 package org.eu.eark.denormalizedb;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
@@ -26,6 +28,13 @@ public class ColumnMetaDataTest extends AbstractTableTestCase {
         assertTrue(table.column(0).allValuesUnique());
         assertTrue(table.column(1).allValuesUnique());
         assertTrue(table.column(2).allValuesUnique());
+    }
+
+    @Test
+    public void shouldKnowItsTableAndColIndex() {
+        ColumnMetaData columnZero = table.getMetaData().getColumn(0);
+        assertSame(table, columnZero.selfReference().getTable());
+        assertEquals(0, columnZero.selfReference().getColIndex());
     }
 
 }

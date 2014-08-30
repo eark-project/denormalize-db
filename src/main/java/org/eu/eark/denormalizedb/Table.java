@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Table {
 
-    private final TableMetaData metaData = new TableMetaData();
+    private final TableMetaData metaData = new TableMetaData(this);
     private final TableData data = new TableData();
     private final List<Column> columns = new ArrayList<Column>();
     private IdColumn idColumn;

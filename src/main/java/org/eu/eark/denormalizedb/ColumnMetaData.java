@@ -7,6 +7,7 @@ public class ColumnMetaData {
 
     private static final String DEFAULT_COLUMN_NAME = null;
 
+    private Reference selfReference;
     private String columnName = DEFAULT_COLUMN_NAME;
     private boolean unique;
     private Reference reference;
@@ -20,6 +21,16 @@ public class ColumnMetaData {
 
     public void setColumnName(String columnName) {
         this.columnName = columnName;
+    }
+
+    public Reference selfReference() {
+        return selfReference;
+    }
+
+    public void setSelfReferenceOnce(Table table, int colIndex) {
+        if (selfReference == null) {
+            this.selfReference = new Reference(table, colIndex);
+        }
     }
 
     public boolean isUnique() {

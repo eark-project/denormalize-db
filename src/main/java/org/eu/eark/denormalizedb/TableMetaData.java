@@ -12,8 +12,13 @@ public class TableMetaData {
     private static final String DEFAULT_TABLE_NAME = null;
     private static final ColumnMetaData DEFAULT_COLUMN_META_DATA = new ColumnMetaData();
 
+    private final Table table;
     private String tableName = DEFAULT_TABLE_NAME;
     private final List<ColumnMetaData> columns = new ArrayList<ColumnMetaData>();
+
+    public TableMetaData(Table table) {
+        this.table = table;
+    }
 
     public String getTableName() {
         return tableName;
@@ -24,6 +29,7 @@ public class TableMetaData {
     }
 
     public void addColumn(ColumnMetaData columnMetaData) {
+        columnMetaData.setSelfReferenceOnce(table, columns.size());
         columns.add(columnMetaData);
     }
 
