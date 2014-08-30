@@ -1,11 +1,17 @@
 package org.eu.eark.denormalizedb;
 
 /**
- * Values of a single row.
+ * Values of a single row. After creation it is sort of immutable (if data is not changed outside).
  */
 public class RowData {
 
+    private static final Object[] EMPTY = new Object[0];
+
     private final Object[] data;
+
+    private RowData() {
+        data = EMPTY;
+    }
 
     public RowData(Object[] data) {
         this.data = data;
@@ -17,5 +23,24 @@ public class RowData {
 
     public int size() {
         return data.length;
+    }
+
+    public RowData join(final RowData other) {
+        final int firstSize = RowData.this.size();
+        return new RowData() {
+
+            @Override
+            public Object get(int colIndex) {
+                if (colIndex < firstSize) {
+                    return RowData.this.get(colIndex);
+                }
+                return other.get(colIndex - firstSize);
+            }
+
+            @Override
+            public int size() {
+                return firstSize + other.size();
+            }
+        };
     }
 }
