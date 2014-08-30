@@ -3,7 +3,6 @@ package org.eu.eark.denormalizedb;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 
@@ -22,11 +21,6 @@ public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
         //         country_id smallint NOT NULL,
         table.getMetaData().setTableName("city");
         loadSakilaTable(table, "select city_id, city, country_id from city;");
-    }
-
-    @Test
-    public void shouldCountColumns() {
-        assertEquals(3, table.numColumns());
     }
 
     @Test
@@ -51,17 +45,6 @@ public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
         // Graz, Linz, Salzburg
     }
     
-    @Test
-    public void shouldOverrideUniqueValuesByMetaData() {
-        table.getMetaData().getColumn(0).setUnique();
-        table.getMetaData().getColumn(1).setUnique();
-        table.getMetaData().getColumn(2).setUnique();
-
-        assertTrue(table.column(0).allValuesUnique());
-        assertTrue(table.column(1).allValuesUnique());
-        assertTrue(table.column(2).allValuesUnique());
-    }
-
     @Test
     public void shouldReverseOrderColumnsForId() {
         assertEquals("city/103/Cape Coral/101", table.idColumn().value(100));

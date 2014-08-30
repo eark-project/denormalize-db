@@ -23,16 +23,6 @@ public class SingleTableWithUniqueValuesTest extends AbstractTableTestCase {
     }
 
     @Test
-    public void shouldCountRows() {
-        assertEquals(109, table.numRows());
-    }
-
-    @Test
-    public void shouldCountColumns() {
-        assertEquals(2, table.numColumns());
-    }
-
-    @Test
     public void shouldCountUniqueValues() {
         assertEquals(109, table.column(0).numUniqueValues());
         assertEquals(109, table.column(1).numUniqueValues());
@@ -47,9 +37,4 @@ public class SingleTableWithUniqueValuesTest extends AbstractTableTestCase {
         assertEquals("country/1/Afghanistan", table.idColumn().value(0));
     }
 
-    @Test
-    public void shouldKeepRowValues() {
-        assertEquals(1, table.column(0).row(0));
-        assertEquals("Afghanistan", table.column(1).row(0));
-    }
 }

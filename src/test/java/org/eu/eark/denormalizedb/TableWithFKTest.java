@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class FKTableTest extends AbstractTableTestCase {
+public class TableWithFKTest extends AbstractTableTestCase {
 
     private static final int COUNTRY_ID = 2;
 
@@ -19,16 +19,9 @@ public class FKTableTest extends AbstractTableTestCase {
 
     @Before
     public void loadCountryData() throws SQLException {
-        // CREATE TABLE country (
-        //   country_id integer DEFAULT nextval('country_country_id_seq'::regclass) NOT NULL,
-        //   country character varying(50) NOT NULL,
         countryTable.getMetaData().setTableName("country");
         loadSakilaTable(countryTable, "select country_id, country from country;");
 
-        // CREATE TABLE city (
-        //         city_id integer DEFAULT nextval('city_city_id_seq'::regclass) NOT NULL,
-        //         city character varying(50) NOT NULL,
-        //         country_id smallint NOT NULL,
         cityTable.getMetaData().setTableName("city");
         loadSakilaTable(cityTable, "select city_id, city, country_id from city;");
 
@@ -51,7 +44,7 @@ public class FKTableTest extends AbstractTableTestCase {
             if (reference != null) {
                 Table referencedTable = reference.getTable();
                 int referencedColIndex = reference.getColIndex();
-                
+
                 for (int colIndex = 0; colIndex < referencedTable.numColumns(); colIndex++) {
                     // skip ID of FK because it is the same
                     if (colIndex == referencedColIndex) {
