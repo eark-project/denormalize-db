@@ -16,21 +16,17 @@ Implementation Steps
   * find columns that always change together e.g. "zip and city" or "city and country"
   * predict fact or dimension and which dimension - tbd
   * sort columns of dimensions
-  * [done] aggregate fact/HBase primary column name idea, use <table>_<smallest dimension>_<next> and so on.
-
+  * [done] aggregate fact/HBase primary column name idea, use <table>_<smallest dimension>_<next> and so on.  
 
 * have a table with a foreign key
   * [done] expand columns of foreign table into table
   * [done] mark new columns as meta data from original table
 
-
 * table with more (simple) foreign keys
   * recursively
 
-
 * m2n
   * tbd
-
 
 * how to export the de-normalised data?
   This is the goal. needs to be pre-aggregated and sorted by different aggregators counts descending
