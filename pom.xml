@@ -18,24 +18,23 @@
     <description>Generate CSV from archived DB</description>
 
     <scm>
-        <!-- need to duplucate from parent because site is adding another "artifactId" -->
+        <!-- need to duplicate from parent because site is adding another "artifactId" -->
         <connection>scm:git:git://github.com/eark-project/${project.artifactId}.git</connection>
         <developerConnection>scm:git:https://github.com/eark-project/${project.artifactId}.git</developerConnection>
         <url>https://github.com/eark-project/${project.artifactId}</url>
     </scm>
 
-    <properties>
-    </properties>
-
     <dependencies>
-        <!-- 
+        <!--
+        TODO need logging later on
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
         -->
          
-        <!--     
+        <!-- fake dependencies, enable to see actual dependency tree when looking for new dependencies -->
+        <!--
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
