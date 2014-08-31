@@ -15,9 +15,10 @@ TODOs
 -----
 - get archived database format: Estonian buildings database
 - understand given format (XML/CSV) and load
-- automatically understand foreign keys, create data model using given sample data
+- create data model using given sample data
+- understand foreign keys 
 - experiment with ways to automatically follow foreign keys
-- automatically denormalise using each table as facts for once
+- automatically de-normalise using each table as facts for once
 - and/or create star schema
 - see what we need to have real star schema
 - define requirements for AIP level 2 (Manfred/HKI) to be useful
