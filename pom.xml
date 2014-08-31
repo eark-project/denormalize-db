@@ -32,7 +32,7 @@
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
         -->
-         
+
         <!-- fake dependencies, enable to see actual dependency tree when looking for new dependencies -->
         <!--
         <dependency>
@@ -48,7 +48,7 @@
             <artifactId>mahout-examples</artifactId>
         </dependency>
         -->
-        
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

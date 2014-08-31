@@ -3,7 +3,7 @@ denormalize-db
 
 eArk WP6 - reference implementation: generate CSV from archived database
 
-Provide some kind of DWH functionality for archived databases. There are 
+Provide some kind of DWH functionality for archived databases. There are
 various formats of archived databases, e.g. SIARD. These are still sort
 of relational by providing meta-data on the original relations.
 The first step/idea is to inline all relations into a huge, de-normalised

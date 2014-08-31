@@ -17,11 +17,11 @@ Implementation Steps
   * predict fact or dimension and which dimension - tbd
   * sort columns of dimensions
   * [done] aggregate fact/HBase primary column name idea, use <table>_<smallest dimension>_<next> and so on.
-    
+
 * have a table with a foreign key
   * [done] expand columns of foreign table into table
   * [done] mark new columns as meta data from original table
-    
+
 * table with more (simple) foreign keys
   * recursively
 
@@ -48,11 +48,11 @@ Sakila
 ------
 
 To start exploring de-normalising relations I need a simple schema with a few relations.
-The schema needs to have some data and should be freely accessible. The Sakila example 
-database was originally developed for MySQL as part of the documentation. 
+The schema needs to have some data and should be freely accessible. The Sakila example
+database was originally developed for MySQL as part of the documentation.
 See https://code.google.com/p/sakila-sample-database-ports/
 
-* Simple Table: `County` only 1 data column. 
+* Simple Table: `County` only 1 data column.
 * Foreign Keys: `Address` -> `City` -> `Country`
 * m2n: `film_category`
 
