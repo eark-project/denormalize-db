@@ -1,4 +1,4 @@
-package org.eu.eark.denormalizedb.util;
+package org.eu.eark.denormalizedb.model.util;
 
 public class Wrapping {
 

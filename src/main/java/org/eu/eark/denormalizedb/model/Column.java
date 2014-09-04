@@ -1,4 +1,4 @@
-package org.eu.eark.denormalizedb;
+package org.eu.eark.denormalizedb.model;
 
 /**
  * A column of a table in a relational schema. A column holds the column meta-data and column's data.

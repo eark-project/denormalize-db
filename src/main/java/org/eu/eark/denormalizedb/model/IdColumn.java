@@ -1,4 +1,4 @@
-package org.eu.eark.denormalizedb;
+package org.eu.eark.denormalizedb.model;
 
 /**
  * A special, derived column that generates String IDs for each table row. The IDs are the values concatenated and sorted by a given order.

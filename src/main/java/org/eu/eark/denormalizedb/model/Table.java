@@ -1,11 +1,11 @@
-package org.eu.eark.denormalizedb;
+package org.eu.eark.denormalizedb.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import org.eu.eark.denormalizedb.util.Wrapping;
+import org.eu.eark.denormalizedb.model.util.Wrapping;
 
 /**
  * A table in a relational schema. A table holds the columns and their meta-data

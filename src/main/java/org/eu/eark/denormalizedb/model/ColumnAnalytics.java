@@ -1,4 +1,4 @@
-package org.eu.eark.denormalizedb;
+package org.eu.eark.denormalizedb.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package org.eu.eark.denormalizedb;
+package org.eu.eark.denormalizedb.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;

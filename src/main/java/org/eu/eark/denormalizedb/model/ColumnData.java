@@ -1,10 +1,10 @@
-package org.eu.eark.denormalizedb;
+package org.eu.eark.denormalizedb.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.eu.eark.denormalizedb.util.Wrapping;
+import org.eu.eark.denormalizedb.model.util.Wrapping;
 
 /**
  * The actual data contained in a column.

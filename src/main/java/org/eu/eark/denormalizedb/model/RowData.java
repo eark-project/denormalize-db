@@ -1,4 +1,4 @@
-package org.eu.eark.denormalizedb;
+package org.eu.eark.denormalizedb.model;
 
 /**
  * Values of a single row. After creation it is sort of immutable (if data is not changed outside).
