@@ -15,15 +15,15 @@ public class ColumnMetaDataTest extends AbstractTableTestCase {
 
     @Before
     public void loadCityData() throws SQLException {
-        table.getMetaData().setTableName("city");
+        table.metaData().setTableName("city");
         loadSakilaTable(table, "select city_id, city, country_id from city;");
     }
 
     @Test
     public void shouldOverrideUniqueValues() {
-        table.getMetaData().getColumn(0).setUnique();
-        table.getMetaData().getColumn(1).setUnique();
-        table.getMetaData().getColumn(2).setUnique();
+        table.metaDataColumn(0).setUnique();
+        table.metaDataColumn(1).setUnique();
+        table.metaDataColumn(2).setUnique();
 
         assertTrue(table.column(0).allValuesUnique());
         assertTrue(table.column(1).allValuesUnique());
@@ -35,7 +35,7 @@ public class ColumnMetaDataTest extends AbstractTableTestCase {
 
     @Test
     public void shouldKnowItsTableAndColIndex() {
-        ColumnMetaData columnZero = table.getMetaData().getColumn(0);
+        ColumnMetaData columnZero = table.metaDataColumn(0);
         assertSame(table, columnZero.getSelfReference().getTable());
         assertEquals(0, columnZero.getSelfReference().getColIndex());
     }

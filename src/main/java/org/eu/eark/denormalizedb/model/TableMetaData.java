@@ -33,7 +33,7 @@ public class TableMetaData {
         columns.add(columnMetaData);
     }
 
-    public ColumnMetaData getColumn(int colIndex) {
+    ColumnMetaData column(int colIndex) {
         boolean metaDataNotSetForColumn = colIndex >= columns.size();
         if (metaDataNotSetForColumn) {
             return DEFAULT_COLUMN_META_DATA;

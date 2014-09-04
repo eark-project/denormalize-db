@@ -9,6 +9,7 @@ public class ColumnMetaData {
 
     private Reference selfReference;
     private String columnName = DEFAULT_COLUMN_NAME;
+    private ColumnDataType type = ColumnDataType.UNKNOWN;
     private boolean unique;
     private Reference reference;
 
@@ -18,6 +19,14 @@ public class ColumnMetaData {
 
     public void setColumnName(String columnName) {
         this.columnName = columnName;
+    }
+
+    public ColumnDataType getType() {
+        return type;
+    }
+
+    public void setType(ColumnDataType type) {
+        this.type = type;
     }
 
     public Reference getSelfReference() {

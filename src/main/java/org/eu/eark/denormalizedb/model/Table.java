@@ -18,8 +18,12 @@ public class Table {
     private final List<Column> columns = new ArrayList<Column>();
     private IdColumn idColumn;
 
-    public TableMetaData getMetaData() {
+    public TableMetaData metaData() {
         return metaData;
+    }
+
+    public ColumnMetaData metaDataColumn(int colIndex) {
+        return metaData.column(colIndex);
     }
     
     public void addRow(RowData values) {
@@ -69,7 +73,7 @@ public class Table {
 
     private void lazyLoadColumns(int index) {
         for (int i = columns.size(); i <= index; i++) {
-            columns.add(new Column(metaData.getColumn(i), new ColumnData(data, i)));
+            columns.add(new Column(metaData.column(i), new ColumnData(data, i)));
         }
     }
 

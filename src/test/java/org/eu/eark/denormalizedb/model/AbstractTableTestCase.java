@@ -32,10 +32,16 @@ public abstract class AbstractTableTestCase {
 
     private void setColumnMetaData(Table table, ResultSetMetaData jdbcMetaData) throws SQLException {
         int colCount = jdbcMetaData.getColumnCount();
-        for (int i = 0; i < colCount; i++) {
+        for (int i = 1; i <= colCount; i++) {
             ColumnMetaData column = new ColumnMetaData();
-            column.setColumnName(jdbcMetaData.getColumnName(i + 1));
-            table.getMetaData().addColumn(column);
+            column.setColumnName(jdbcMetaData.getColumnName(i));
+            String columnTypeName = jdbcMetaData.getColumnTypeName(i);
+            if (columnTypeName.equalsIgnoreCase("text")) {
+                column.setType(ColumnDataType.TEXT);
+            } else if (columnTypeName.equalsIgnoreCase("integer")) {
+                column.setType(ColumnDataType.NUMBER);
+            }
+            table.metaData().addColumn(column);
         }
     }
 

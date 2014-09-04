@@ -26,7 +26,7 @@ public class IdColumn {
         for (int i = 0; i < uniqueColumnOrder.length; i++) {
             int useColumn = uniqueColumnOrder[i];
 
-            if (metaData.getColumn(useColumn).hasFK()) {
+            if (metaData.column(useColumn).hasFK()) {
                 // do not add FK source because the target is the same
                 continue;
             }

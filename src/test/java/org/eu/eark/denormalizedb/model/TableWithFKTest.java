@@ -20,13 +20,13 @@ public class TableWithFKTest extends AbstractTableTestCase {
 
     @Before
     public void denomraliseCitiesWithCountries() throws SQLException {
-        countryTable.getMetaData().setTableName("country");
+        countryTable.metaData().setTableName("country");
         loadSakilaTable(countryTable, "select country_id, country from country;");
 
-        cityTable.getMetaData().setTableName("city");
+        cityTable.metaData().setTableName("city");
         loadSakilaTable(cityTable, "select city_id, city, country_id from city;");
 
-        cityTable.getMetaData().getColumn(COUNTRY_ID).references(countryTable, 0);
+        cityTable.metaDataColumn(COUNTRY_ID).references(countryTable, 0);
 
         table = explode(cityTable);
     }
@@ -44,12 +44,12 @@ public class TableWithFKTest extends AbstractTableTestCase {
     }
 
     private void copyTableName(Table source, Table target) {
-        target.getMetaData().setTableName(source.getMetaData().getTableName());
+        target.metaData().setTableName(source.metaData().getTableName());
     }
 
     private void copyColumnsMetaData(Table source, Table target) {
-        for (ColumnMetaData cmd : source.getMetaData().columns()) {
-            target.getMetaData().addColumn(cmd);
+        for (ColumnMetaData cmd : source.metaData().columns()) {
+            target.metaData().addColumn(cmd);
         }
     }
 
@@ -61,7 +61,7 @@ public class TableWithFKTest extends AbstractTableTestCase {
 
     private void copyAllReferencedData(Table source, Table target) {
         int colIndex = 0;
-        for (ColumnMetaData cmd : source.getMetaData().columns()) {
+        for (ColumnMetaData cmd : source.metaData().columns()) {
             if (cmd.hasFK()) {
                 Reference reference = cmd.getReference();
                 copyAllColumnsMetaDataFromReferencedTable(reference, target);
@@ -75,8 +75,8 @@ public class TableWithFKTest extends AbstractTableTestCase {
         Table referencedTable = foreignKey.getTable();
 
         for (int colIndex = 0; colIndex < referencedTable.numColumns(); colIndex++) {
-            ColumnMetaData cmd = referencedTable.getMetaData().getColumn(colIndex);
-            target.getMetaData().addColumn(cmd);
+            ColumnMetaData cmd = referencedTable.metaDataColumn(colIndex);
+            target.metaData().addColumn(cmd);
         }
     }
 
@@ -88,16 +88,16 @@ public class TableWithFKTest extends AbstractTableTestCase {
 
     @Test
     public void shouldMarkOutgoingReferenceColumn() {
-        ColumnMetaData sourceColumn = table.getMetaData().getColumn(COUNTRY_ID);
+        ColumnMetaData sourceColumn = table.metaDataColumn(COUNTRY_ID);
         Table referencedTable = sourceColumn.getReference().getTable();
-        String referenceTableName = referencedTable.getMetaData().getTableName();
+        String referenceTableName = referencedTable.metaData().getTableName();
         assertEquals("country", referenceTableName);
     }
 
     @Test
     public void shouldAddMetaDataColumnsOfReferencesTable() {
         int newColumnIndex = 3;
-        ColumnMetaData newIdColumn = table.getMetaData().getColumn(newColumnIndex);
+        ColumnMetaData newIdColumn = table.metaDataColumn(newColumnIndex);
         assertEquals("country_id", newIdColumn.getColumnName());
         assertEquals(0, newIdColumn.getSelfReference().getColIndex());
     }

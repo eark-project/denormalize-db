@@ -16,7 +16,7 @@ public class TableTest extends AbstractTableTestCase {
 
     @Before
     public void loadCountryData() throws SQLException {
-        table.getMetaData().setTableName("country");
+        table.metaData().setTableName("country");
         loadSakilaTable(table, "select country_id, country from country;");
     }
 

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.SQLException;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ColumnAnalyticsTest extends AbstractTableTestCase {
@@ -18,7 +19,7 @@ public class ColumnAnalyticsTest extends AbstractTableTestCase {
         // CREATE TABLE country (
         //   country_id integer DEFAULT nextval('country_country_id_seq'::regclass) NOT NULL,
         //   country character varying(50) NOT NULL,
-        table.getMetaData().setTableName("country");
+        table.metaData().setTableName("country");
         loadSakilaTable(table, "select country_id, country from country;");
     }
 
@@ -32,6 +33,15 @@ public class ColumnAnalyticsTest extends AbstractTableTestCase {
         assertArrayEquals(new int[] { 0, 1 }, table.uniqueColumnOrder());
     }
 
+    @Test @Ignore
+    public void shouldDetectTextWhenUnknown() {
+         // table.getMetaDataColumn(0)
+    }
+    
+    @Test @Ignore
+    public void shouldDetectSingleWordColumns() {
+    }
+    
     // TODO implement analytics for recognising potential columns for full text index
     // many values have > 1 word -> should index in Solr
 

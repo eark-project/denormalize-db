@@ -9,15 +9,15 @@ public class IdColumnTest {
     @Test
     public void shouldUseUniqueColumnsForId() {
         Table table = new Table();
-        table.getMetaData().setTableName("country");
+        table.metaData().setTableName("country");
 
         ColumnMetaData idColumn = new ColumnMetaData();
         idColumn.setColumnName("country_id");
-        table.getMetaData().addColumn(idColumn);
+        table.metaData().addColumn(idColumn);
 
         ColumnMetaData nameColumn = new ColumnMetaData();
         nameColumn.setColumnName("country");
-        table.getMetaData().addColumn(nameColumn);
+        table.metaData().addColumn(nameColumn);
 
         table.addRow(1, "Afghanistan");
 

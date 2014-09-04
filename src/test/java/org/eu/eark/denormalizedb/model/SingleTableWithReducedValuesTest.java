@@ -22,7 +22,7 @@ public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
         //         city_id integer DEFAULT nextval('city_city_id_seq'::regclass) NOT NULL,
         //         city character varying(50) NOT NULL,
         //         country_id smallint NOT NULL,
-        table.getMetaData().setTableName("city");
+        table.metaData().setTableName("city");
         loadSakilaTable(table, "select city_id, city, country_id from city;");
     }
 
