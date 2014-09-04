@@ -20,7 +20,7 @@ public class RowDataTest {
     }
 
     @Test
-    public void shouldJoin() {
+    public void shouldJoinData() {
         RowData rd1 = new RowData(new Object[] { 1 });
         RowData rd2 = new RowData(new Object[] { 'A' });
         RowData joined = rd1.join(rd2);
@@ -28,4 +28,11 @@ public class RowDataTest {
         assertEquals('A', joined.get(1));
     }
 
+    @Test
+    public void shouldJoinSize() {
+        RowData rd1 = new RowData(new Object[] { 1, 2, 3 });
+        RowData rd2 = new RowData(new Object[] { 'A', 'B' });
+        RowData joined = rd1.join(rd2);
+        assertEquals(5, joined.size());
+    }
 }

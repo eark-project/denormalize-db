@@ -20,4 +20,13 @@ public class Reference {
     public int getColIndex() {
         return colIndex;
     }
+
+    public RowData[] valuesReferencedBy(Object[] fks) {
+        int[] referencedRowsIndices = indicesOfReferencedRows(fks);
+        return table.rows(referencedRowsIndices);
+    }
+
+    private int[] indicesOfReferencedRows(Object[] keys) {
+        return table.column(colIndex).indexesOf(keys);
+    }
 }

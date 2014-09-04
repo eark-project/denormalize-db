@@ -1,15 +1,15 @@
 package org.eu.eark.denormalizedb.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.sql.SQLException;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * Test the de-normalisation of a single table with one foreigh key: City references country.
+ * Test the de-normalisation of a single table with one foreign key: City references country.
  */
 public class TableWithFKTest extends AbstractTableTestCase {
 
@@ -73,13 +73,6 @@ public class TableWithFKTest extends AbstractTableTestCase {
         }
     }
 
-    private void copyAllDataFromReferencedTable(Table source, int colIndex, Reference foreignKey, Table target) {
-        Object[] fks = source.column(colIndex).rows();
-        int[] referencedRows = foreignKey.getTable().column(foreignKey.getColIndex()).indexesOf(fks);
-        RowData[] values = source.rows(referencedRows);
-        target.extendWith(values);
-    }
-
     private void copyAllColumnsMetaDataFromReferencedTable(Reference foreignKey, Table target) {
         Table referencedTable = foreignKey.getTable();
 
@@ -87,6 +80,12 @@ public class TableWithFKTest extends AbstractTableTestCase {
             ColumnMetaData cmd = referencedTable.getMetaData().getColumn(colIndex);
             target.getMetaData().addColumn(cmd);
         }
+    }
+
+    private void copyAllDataFromReferencedTable(Table source, int colIndex, Reference foreignKey, Table target) {
+        Object[] keys = source.column(colIndex).rows();
+        RowData[] values = foreignKey.valuesReferencedBy(keys);
+        target.extendWith(values);
     }
 
     @Test
@@ -105,13 +104,26 @@ public class TableWithFKTest extends AbstractTableTestCase {
     // TODO maybe add meta column info on FK references, e.g. # of total rows used from original table
 
     @Test
-    public void shouldAddDataColumnsOfReferencesTable() {
-        int newColumnIndex = 4;
-        Column newNameColumn = table.column(newColumnIndex);
-        assertNotNull(newNameColumn);
-        assertEquals("Botshabelo", newNameColumn.row(0)); // 87th country
+    public void shouldMergeOriginalAndNewColumnsOfReferencesTable() {
+        RowData newRow = table.row(0);
+        assertEquals(5, newRow.size());
+
+        RowData row = table.row(100);
+        assertEquals(101, row.get(0)); // city_id
+        assertEquals("Cape Coral", row.get(1)); // city 101 checked
+        assertEquals(103, row.get(2)); // country id
+
+        assertEquals(103, row.get(3)); // country id
+        assertEquals("United States", row.get(4)); // country 103 checked
     }
 
     // TODO new column which has only values that were used, so reduced in size or exploded in size
+
+    @Test
+    @Ignore
+    public void shouldIgnoreFKTargetColumnForId() {
+        // TODO id column should ignore FK target column, because it is the same as
+        assertEquals("city/103/Cape Coral/101", table.idColumn().value(55));
+    }
 
 }
