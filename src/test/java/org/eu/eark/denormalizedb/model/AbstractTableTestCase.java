@@ -15,14 +15,18 @@ public abstract class AbstractTableTestCase {
 
     protected void loadSakilaTable(Table table, String query) throws SQLException {
         Statement stat = conn.createStatement();
-        ResultSet rs = stat.executeQuery(query);
         try {
-            ResultSetMetaData jdbcMetaData = rs.getMetaData();
-            setColumnMetaData(table, jdbcMetaData);
+            ResultSet rs = stat.executeQuery(query);
+            try {
+                ResultSetMetaData jdbcMetaData = rs.getMetaData();
+                setColumnMetaData(table, jdbcMetaData);
 
-            setTableData(table, rs);
+                setTableData(table, rs);
+            } finally {
+                rs.close();
+            }
         } finally {
-            rs.close();
+            stat.close();
         }
     }
 
