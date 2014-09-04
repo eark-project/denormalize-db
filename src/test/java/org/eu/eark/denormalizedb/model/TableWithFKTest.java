@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test the de-normalisation of a single table with one foreigh key: City references country.
+ */
 public class TableWithFKTest extends AbstractTableTestCase {
 
     private static final int COUNTRY_ID = 2;
@@ -17,7 +20,7 @@ public class TableWithFKTest extends AbstractTableTestCase {
     private Table table;
 
     @Before
-    public void loadCountryData() throws SQLException {
+    public void denomraliseCitiesWithCountries() throws SQLException {
         countryTable.getMetaData().setTableName("country");
         loadSakilaTable(countryTable, "select country_id, country from country;");
 
@@ -97,8 +100,9 @@ public class TableWithFKTest extends AbstractTableTestCase {
         ColumnMetaData newIdColumn = table.getMetaData().getColumn(newColumnIndex);
         assertEquals("country_id", newIdColumn.getColumnName());
         assertEquals(0, newIdColumn.getSelfReference().getColIndex());
-        // TODO meta column with info on FK references, e.g. # of total used
     }
+
+    // TODO maybe add meta column info on FK references, e.g. # of total rows used from original table
 
     @Test
     public void shouldAddDataColumnsOfReferencesTable() {

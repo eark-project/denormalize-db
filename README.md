@@ -11,6 +11,12 @@ table which can be exported as CSV or loaded into HBase later.
 
 See also [Implementation Notes](Notes.md).
 
+Next Steps
+----------
+- HBase export
+- id column
+- try multiple FKs recursive
+
 TODOs
 -----
 - get archived database format: Estonian buildings database

@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Country data contains columns that all have unique values.
+ */
 public class SingleTableWithUniqueValuesTest extends AbstractTableTestCase {
 
     private final Table table = new Table();
@@ -37,4 +40,6 @@ public class SingleTableWithUniqueValuesTest extends AbstractTableTestCase {
         assertEquals("country/1/Afghanistan", table.idColumn().value(0));
     }
 
+    // TODO ID Column, if it has too many columns, try to reduce for the key
+    // * if there are more unique values, chose one (which one?)
 }

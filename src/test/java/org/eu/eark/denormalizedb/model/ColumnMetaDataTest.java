@@ -30,6 +30,9 @@ public class ColumnMetaDataTest extends AbstractTableTestCase {
         assertTrue(table.column(2).allValuesUnique());
     }
 
+    // TODO add other meta data like isPK, Type (as enum?), etc.
+    // look into Estonian database what is provided
+
     @Test
     public void shouldKnowItsTableAndColIndex() {
         ColumnMetaData columnZero = table.getMetaData().getColumn(0);
@@ -37,4 +40,7 @@ public class ColumnMetaDataTest extends AbstractTableTestCase {
         assertEquals(0, columnZero.getSelfReference().getColIndex());
     }
 
+    // TODO column should provide a column name and column family for dump
+    // column families might be the originating table, 
+    // but all names must be unique for HBase export for example.
 }

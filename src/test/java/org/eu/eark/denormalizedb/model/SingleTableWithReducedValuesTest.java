@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * City data contains redundant columns because several cities are in a single country.
+ */
 public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
 
     private final Table table = new Table();
@@ -50,4 +53,8 @@ public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
         assertEquals("city/103/Cape Coral/101", table.idColumn().value(100));
     }
 
+    // TODO ID Column, if it has too many columns, try to reduce for the key
+    // * if there are more non-unique but in not overlapping dimensions, create different variations of id columns = multiple tables
+    // * detect if a unique column is a subset of another unique column and sort these into groups (this is more than just ordering by count)
+    
 }

@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test general table functionality.
+ */
 public class TableTest extends AbstractTableTestCase {
 
     private final Table table = new Table();

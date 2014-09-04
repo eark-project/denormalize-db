@@ -12,9 +12,6 @@ public class ColumnMetaData {
     private boolean unique;
     private Reference reference;
 
-    // TODO other meta data like PK, FK to Table x, type (enum?), etc.
-    // look into Estonian database what is provided...
-
     public String getColumnName() {
         return columnName;
     }
