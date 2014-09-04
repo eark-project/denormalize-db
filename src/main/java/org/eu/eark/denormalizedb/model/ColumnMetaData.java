@@ -46,8 +46,13 @@ public class ColumnMetaData {
         return reference;
     }
 
+    public boolean hasFK() {
+        return getReference() != null;
+    }
+
     @Override
     public String toString() {
         return columnName;
     }
+
 }

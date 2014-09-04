@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.sql.SQLException;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -63,9 +62,8 @@ public class TableWithFKTest extends AbstractTableTestCase {
     private void copyAllReferencedData(Table source, Table target) {
         int colIndex = 0;
         for (ColumnMetaData cmd : source.getMetaData().columns()) {
-            Reference reference = cmd.getReference();
-            boolean hasFK = reference != null;
-            if (hasFK) {
+            if (cmd.hasFK()) {
+                Reference reference = cmd.getReference();
                 copyAllColumnsMetaDataFromReferencedTable(reference, target);
                 copyAllDataFromReferencedTable(source, colIndex, reference, target);
             }
@@ -90,7 +88,10 @@ public class TableWithFKTest extends AbstractTableTestCase {
 
     @Test
     public void shouldMarkOutgoingReferenceColumn() {
-        assertEquals("country", table.getMetaData().getColumn(COUNTRY_ID).getReference().getTable().getMetaData().getTableName());
+        ColumnMetaData sourceColumn = table.getMetaData().getColumn(COUNTRY_ID);
+        Table referencedTable = sourceColumn.getReference().getTable();
+        String referenceTableName = referencedTable.getMetaData().getTableName();
+        assertEquals("country", referenceTableName);
     }
 
     @Test
@@ -120,10 +121,8 @@ public class TableWithFKTest extends AbstractTableTestCase {
     // TODO new column which has only values that were used, so reduced in size or exploded in size
 
     @Test
-    @Ignore
-    public void shouldIgnoreFKTargetColumnForId() {
-        // TODO id column should ignore FK target column, because it is the same as
-        assertEquals("city/103/Cape Coral/101", table.idColumn().value(55));
+    public void shouldIgnoreSecondFKTargetColumnForId() {
+        assertEquals("city/103/United States/Cape Coral/101", table.idColumn().value(100));
     }
 
 }

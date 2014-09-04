@@ -24,8 +24,15 @@ public class IdColumn {
         StringBuilder buf = new StringBuilder();
         buf.append(metaData.getTableName());
         for (int i = 0; i < uniqueColumnOrder.length; i++) {
+            int useColumn = uniqueColumnOrder[i];
+
+            if (metaData.getColumn(useColumn).hasFK()) {
+                // do not add FK source because the target is the same
+                continue;
+            }
+
             buf.append(SEP);
-            buf.append(row.get(uniqueColumnOrder[i]));
+            buf.append(row.get(useColumn));
         }
 
         return buf.toString();

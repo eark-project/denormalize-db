@@ -47,14 +47,10 @@ public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
         assertEquals(3, table.column(countryId).getAnalytics().numOccurances(austria));
         // Graz, Linz, Salzburg
     }
-    
+
     @Test
-    public void shouldReverseOrderColumnsForId() {
+    public void shouldSortColumnsByUniqueCountForId() {
         assertEquals("city/103/Cape Coral/101", table.idColumn().value(100));
     }
 
-    // TODO ID Column, if it has too many columns, try to reduce for the key
-    // * if there are more non-unique but in not overlapping dimensions, create different variations of id columns = multiple tables
-    // * detect if a unique column is a subset of another unique column and sort these into groups (this is more than just ordering by count)
-    
 }
