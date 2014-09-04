@@ -43,14 +43,14 @@ public class ColumnAnalyticsTest extends AbstractTableTestCase {
         assertEquals(ColumnDataType.TEXT, nameColumn.getType());
     }
 
-    //    @Test
-    //    public void shouldCountMinAndMaxOfSizes() {
-    //        assertEquals(3, table.column(0).minLength());
-    //        assertEquals(3, table.column(1).minLength());
-    //
-    //        assertEquals(3, table.column(0).maxLength());
-    //        assertEquals(15, table.column(1).maxLength());
-    //    }
+    @Test
+    public void shouldCountMinAndMaxColLengths() {
+        assertEquals(1, table.column(0).minLength());
+        assertEquals(3, table.column(0).maxLength());
+
+        assertEquals(4, table.column(1).minLength());
+        assertEquals(37, table.column(1).maxLength());
+    }
 
     // TODO implement analytics for recognising potential columns for full text index
     // many values have > 1 word -> should index in Solr

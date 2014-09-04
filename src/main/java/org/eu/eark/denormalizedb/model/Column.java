@@ -1,6 +1,6 @@
 package org.eu.eark.denormalizedb.model;
 
-import org.eu.eark.denormalizedb.model.util.Predicate;
+import org.eu.eark.denormalizedb.model.analytics.IsSentence;
 
 /**
  * A column of a table in a relational schema. A column holds the column meta-data and column's data.
@@ -43,22 +43,16 @@ public class Column {
         return analytics.allValuesUnique();
     }
 
-    public void detectType() {
-        Predicate isSentence = new Predicate() {
-            @Override
-            public boolean satisfiedBy(Object value) {
-                if (value instanceof String) {
-                    String s = (String) value;
-                    String word = "[\\pL!,.:;()]++"; // hack, allow braces inside every word
-                    String wordEnding = "(?:\\s++|$)";
-                    String sentence = "(?:" + word + wordEnding + ")+";
-                    return s.matches(sentence);
-                }
-                return false;
-            }
-        };
+    public int minLength() {
+        return analytics.minLength();
+    }
 
-        if (analytics.all(isSentence)) {
+    public int maxLength() {
+        return analytics.maxLength();
+    }
+
+    public void detectType() {
+        if (analytics.all(new IsSentence())) {
             metaData.setType(ColumnDataType.TEXT);
         }
     }

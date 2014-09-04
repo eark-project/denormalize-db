@@ -1,4 +1,4 @@
-package org.eu.eark.denormalizedb.model.util;
+package org.eu.eark.denormalizedb.model.analytics;
 
 public interface Predicate {
 
