@@ -34,10 +34,14 @@
         -->
 
         <!-- fake dependencies, enable to see actual dependency tree when looking for new dependencies -->
-        <!--
+        <!-- 
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.pig</groupId>
@@ -45,7 +49,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.mahout</groupId>
-            <artifactId>mahout-examples</artifactId>
+            <artifactId>mahout-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.mahout</groupId>
+            <artifactId>mahout-math</artifactId>
         </dependency>
         -->
 
