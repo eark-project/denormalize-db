@@ -35,11 +35,4 @@ public class SingleTableWithUniqueValuesTest extends AbstractTableTestCase {
         assertArrayEquals(new int[] { 0, 1 }, table.uniqueColumnOrder());
     }
 
-    @Test
-    public void shouldReverseOrderColumnsForId() {
-        assertEquals("country/1/Afghanistan", table.idColumn().value(0));
-    }
-
-    // TODO ID Column, if it has too many columns, try to reduce for the key
-    // * if there are more unique values, chose one (which one?)
 }
