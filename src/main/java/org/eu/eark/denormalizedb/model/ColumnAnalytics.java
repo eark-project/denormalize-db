@@ -3,6 +3,8 @@ package org.eu.eark.denormalizedb.model;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.eu.eark.denormalizedb.model.util.Predicate;
+
 /**
  * Container for simple analytical (meta) data about a column's data like unique or histograms.
  */
@@ -36,6 +38,15 @@ public class ColumnAnalytics {
     public int numOccurances(Object value) {
         lazyFindUniqueValues();
         return uniqueValues.get(value);
+    }
+
+    public boolean all(Predicate condition) {
+        for (Object value : data) {
+            if (!condition.satisfiedBy(value)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

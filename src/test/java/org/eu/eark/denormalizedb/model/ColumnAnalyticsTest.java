@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 import java.sql.SQLException;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class ColumnAnalyticsTest extends AbstractTableTestCase {
@@ -33,15 +32,26 @@ public class ColumnAnalyticsTest extends AbstractTableTestCase {
         assertArrayEquals(new int[] { 0, 1 }, table.uniqueColumnOrder());
     }
 
-    @Test @Ignore
+    @Test
     public void shouldDetectTextWhenUnknown() {
-         // table.getMetaDataColumn(0)
+        int nameColIndex = 1;
+        ColumnMetaData nameColumn = table.metaDataColumn(nameColIndex);
+        nameColumn.setType(ColumnDataType.UNKNOWN);
+
+        table.column(nameColIndex).detectType();
+
+        assertEquals(ColumnDataType.TEXT, nameColumn.getType());
     }
-    
-    @Test @Ignore
-    public void shouldDetectSingleWordColumns() {
-    }
-    
+
+    //    @Test
+    //    public void shouldCountMinAndMaxOfSizes() {
+    //        assertEquals(3, table.column(0).minLength());
+    //        assertEquals(3, table.column(1).minLength());
+    //
+    //        assertEquals(3, table.column(0).maxLength());
+    //        assertEquals(15, table.column(1).maxLength());
+    //    }
+
     // TODO implement analytics for recognising potential columns for full text index
     // many values have > 1 word -> should index in Solr
 

@@ -1,5 +1,7 @@
 package org.eu.eark.denormalizedb.model;
 
+import org.eu.eark.denormalizedb.model.util.Predicate;
+
 /**
  * A column of a table in a relational schema. A column holds the column meta-data and column's data.
  */
@@ -15,9 +17,13 @@ public class Column {
         this.analytics = new ColumnAnalytics(data);
     }
 
+    // delegate to the meta data
+
     public ColumnMetaData getMetaData() {
         return metaData;
     }
+
+    // analytics
 
     public ColumnAnalytics getAnalytics() {
         return analytics;
@@ -37,6 +43,28 @@ public class Column {
         return analytics.allValuesUnique();
     }
 
+    public void detectType() {
+        Predicate isSentence = new Predicate() {
+            @Override
+            public boolean satisfiedBy(Object value) {
+                if (value instanceof String) {
+                    String s = (String) value;
+                    String word = "[\\pL!,.:;()]++"; // hack, allow braces inside every word
+                    String wordEnding = "(?:\\s++|$)";
+                    String sentence = "(?:" + word + wordEnding + ")+";
+                    return s.matches(sentence);
+                }
+                return false;
+            }
+        };
+
+        if (analytics.all(isSentence)) {
+            metaData.setType(ColumnDataType.TEXT);
+        }
+    }
+
+    // delegate to the real data 
+
     public Object row(int rowIndex) {
         return data.row(rowIndex);
     }
@@ -48,7 +76,7 @@ public class Column {
     public Object[] rows() {
         return data.rows();
     }
-    
+
     public int indexOf(Object value) {
         return data.indexOf(value);
     }
