@@ -46,4 +46,8 @@ public class ColumnMetaData {
         return reference;
     }
 
+    @Override
+    public String toString() {
+        return columnName;
+    }
 }

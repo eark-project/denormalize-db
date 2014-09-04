@@ -50,4 +50,8 @@ public class TableMetaData {
         };
     }
 
+    @Override
+    public String toString() {
+        return tableName;
+    }
 }
