@@ -35,7 +35,6 @@ public class TableColumns implements Iterable<Column> {
     private void lazyLoadColumns(int index) {
         for (int i = columns.size(); i <= index; i++) {
             columns.add(new Column(tableMetaData.column(i), new ColumnData(tableData, i)));
-            // TODO factory
         }
     }
 
