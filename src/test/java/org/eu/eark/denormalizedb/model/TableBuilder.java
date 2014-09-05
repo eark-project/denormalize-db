@@ -12,7 +12,7 @@ public class TableBuilder {
     public TableBuilder withColumn(String name) {
         ColumnMetaData idColumn = new ColumnMetaData();
         idColumn.setColumnName(name);
-        table.metaData().addColumn(idColumn);
+        table.addMetaDataColumn(idColumn);
         return this;
     }
 

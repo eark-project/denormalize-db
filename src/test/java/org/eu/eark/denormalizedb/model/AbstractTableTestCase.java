@@ -41,7 +41,7 @@ public abstract class AbstractTableTestCase {
             } else if (columnTypeName.equalsIgnoreCase("integer")) {
                 column.setType(ColumnDataType.NUMBER);
             }
-            table.metaData().addColumn(column);
+            table.addMetaDataColumn(column);
         }
     }
 

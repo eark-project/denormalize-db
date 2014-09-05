@@ -6,9 +6,10 @@ package org.eu.eark.denormalizedb.model;
  */
 public class Table {
 
-    private final TableMetaData metaData = new TableMetaData(this);
+    private final TableMetaData metaData = new TableMetaData();
     private final TableData data = new TableData();
-    private final Columns columns = new Columns(metaData, data);
+    private final TableColumns columns = new TableColumns(metaData, data);
+    
     private IdColumn idColumn;
 
     // delegate to the meta data
@@ -17,8 +18,17 @@ public class Table {
         return metaData;
     }
 
+    public void addMetaDataColumn(ColumnMetaData columnMetaData) {
+        columnMetaData.setSelfReferenceOnce(this, metaData.numColumns());
+        metaData.addColumn(columnMetaData);
+    }
+
     public ColumnMetaData metaDataColumn(int colIndex) {
         return metaData.column(colIndex);
+    }
+
+    public Iterable<ColumnMetaData> metaDataColumns() {
+        return metaData.columns();
     }
 
     // delegate to the data
@@ -61,6 +71,10 @@ public class Table {
         return columns.column(index);
     }
 
+    public Iterable<Column> columns() {
+        return columns;
+    }
+
     public int[] uniqueColumnOrder() {
         return columns.uniqueColumnOrder();
     }
@@ -69,6 +83,8 @@ public class Table {
         return columns.uniqueColumnIndices();
     }
 
+    // id
+    
     public IdColumn idColumn() {
         if (idColumn == null) {
             idColumn = new IdColumn(metaData, data, uniqueColumnIndices(), uniqueColumnOrder());

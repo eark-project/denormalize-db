@@ -49,8 +49,8 @@ public class TableWithFKTest extends AbstractTableTestCase {
     }
 
     private void copyColumnsMetaData(Table source, Table target) {
-        for (ColumnMetaData cmd : source.metaData().columns()) {
-            target.metaData().addColumn(cmd);
+        for (ColumnMetaData cmd : source.metaDataColumns()) {
+            target.addMetaDataColumn(cmd);
         }
     }
 
@@ -62,7 +62,7 @@ public class TableWithFKTest extends AbstractTableTestCase {
 
     private void copyAllReferencedData(Table source, Table target) {
         int colIndex = 0;
-        for (ColumnMetaData cmd : source.metaData().columns()) {
+        for (ColumnMetaData cmd : source.metaDataColumns()) {
             if (cmd.hasFK()) {
                 Reference reference = cmd.getReference();
                 copyAllColumnsMetaDataFromReferencedTable(reference, target);
@@ -77,7 +77,7 @@ public class TableWithFKTest extends AbstractTableTestCase {
 
         for (int colIndex = 0; colIndex < referencedTable.numColumns(); colIndex++) {
             ColumnMetaData cmd = referencedTable.metaDataColumn(colIndex);
-            target.metaData().addColumn(cmd);
+            target.addMetaDataColumn(cmd);
         }
     }
 

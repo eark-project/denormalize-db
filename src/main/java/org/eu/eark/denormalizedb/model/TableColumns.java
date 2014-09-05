@@ -3,26 +3,23 @@ package org.eu.eark.denormalizedb.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eu.eark.denormalizedb.model.util.Wrapping;
 
 /**
- * Container of a table's columns.
+ * Encapsulated Container for table columns.
  */
-public class Columns {
+public class TableColumns implements Iterable<Column> {
 
     private final TableMetaData tableMetaData;
     private final TableData tableData;
     private final List<Column> columns = new ArrayList<Column>();
 
-    public Columns(TableMetaData tableMetaData, TableData tableData) {
+    public TableColumns(TableMetaData tableMetaData, TableData tableData) {
         this.tableMetaData = tableMetaData;
         this.tableData = tableData;
-    }
-
-    private int numColumns() {
-        return tableData.numColumns();
     }
 
     public Column column(int index) {
@@ -38,7 +35,17 @@ public class Columns {
     private void lazyLoadColumns(int index) {
         for (int i = columns.size(); i <= index; i++) {
             columns.add(new Column(tableMetaData.column(i), new ColumnData(tableData, i)));
+            // TODO factory
         }
+    }
+
+    @Override
+    public Iterator<Column> iterator() {
+        return columns.iterator();
+    }
+
+    private int numColumns() {
+        return tableData.numColumns();
     }
 
     /**
