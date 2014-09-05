@@ -25,7 +25,7 @@ public class Table {
     public ColumnMetaData metaDataColumn(int colIndex) {
         return metaData.column(colIndex);
     }
-    
+
     public void addRow(RowData values) {
         data.add(values);
     }
@@ -33,7 +33,7 @@ public class Table {
     public void addRow(Object... values) {
         data.add(new RowData(values));
     }
-    
+
     public RowData row(int rowIndex) {
         return data.get(rowIndex);
     }
@@ -49,7 +49,7 @@ public class Table {
     public void extendWith(RowData[] values) {
         data.join(values);
     }
-    
+
     public int numRows() {
         return data.size();
     }
