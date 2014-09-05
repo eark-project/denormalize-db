@@ -28,7 +28,12 @@ public class ColumnAnalyticsTest extends AbstractTableTestCase {
         assertEquals(109, table.column(1).numUniqueValues());
 
         assertTrue(table.column(0).allValuesUnique());
+        
+        assertArrayEquals(new int[] { 0, 1 }, table.uniqueColumnIndices());
+    }
 
+    @Test
+    public void shouldKeepOriginalColumnOrderForUniqueColumnOrder() {
         assertArrayEquals(new int[] { 0, 1 }, table.uniqueColumnOrder());
     }
 

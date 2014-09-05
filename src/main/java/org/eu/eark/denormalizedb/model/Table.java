@@ -77,6 +77,10 @@ public class Table {
         }
     }
 
+    /**
+     * Sort columns by number of unique elements. In case of same number, keen
+     * order of columns in table.
+     */
     public int[] uniqueColumnOrder() {
         final int[] uniqueCounts = new int[numColumns()];
         Integer[] positions = new Integer[uniqueCounts.length];
@@ -91,6 +95,16 @@ public class Table {
             }
         });
         return Wrapping.toPrimitive(positions);
+    }
+
+    public int[] uniqueColumnIndices() {
+        List<Integer> indices = new ArrayList<Integer>();
+        for (int i = 0; i < numColumns(); i++) {
+            if (column(i).allValuesUnique()) {
+                indices.add(i);
+            }
+        }
+        return Wrapping.toPrimitive(indices);
     }
 
     public IdColumn idColumn() {

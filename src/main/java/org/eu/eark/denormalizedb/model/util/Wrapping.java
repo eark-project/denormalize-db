@@ -1,5 +1,7 @@
 package org.eu.eark.denormalizedb.model.util;
 
+import java.util.List;
+
 public class Wrapping {
 
     public static int toPrimitive(Integer row, String exceptionIfImpossible) {
@@ -15,6 +17,10 @@ public class Wrapping {
             primitives[i] = toPrimitive(wrappers[i], "null");
         }
         return primitives;
+    }
+
+    public static int[] toPrimitive(List<Integer> indices) {
+        return toPrimitive(indices.toArray(new Integer[indices.size()]));
     }
 
 }
