@@ -33,7 +33,7 @@ public class TableMetaData {
         return columns.metaDataColumn(colIndex);
     }
 
-    public Iterable<ColumnMetaData> columns() {
+    public MetaDataColumns columns() {
         return columns;
     }
 

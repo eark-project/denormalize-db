@@ -37,7 +37,7 @@ public class SingleTableWithReducedValuesTest extends AbstractTableTestCase {
 
     @Test
     public void shouldSortByNumberOfUniqueValues() {
-        assertArrayEquals(new int[] { 2, 1, 0 }, table.uniqueColumnOrder());
+        assertArrayEquals(new int[] { 2, 1, 0 }, table.columns().uniqueColumnOrder());
     }
 
     @Test

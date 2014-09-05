@@ -9,7 +9,7 @@ public class Table {
     private final TableMetaData metaData = new TableMetaData();
     private final TableData data = new TableData();
     private final TableColumns columns = new TableColumns(metaData, data);
-    
+
     private IdColumn idColumn;
 
     // delegate to the meta data
@@ -27,7 +27,7 @@ public class Table {
         return metaData.column(colIndex);
     }
 
-    public Iterable<ColumnMetaData> metaDataColumns() {
+    public MetaDataColumns metaDataColumns() {
         return metaData.columns();
     }
 
@@ -71,23 +71,15 @@ public class Table {
         return columns.column(index);
     }
 
-    public Iterable<Column> columns() {
+    public TableColumns columns() {
         return columns;
     }
 
-    public int[] uniqueColumnOrder() {
-        return columns.uniqueColumnOrder();
-    }
-
-    public int[] uniqueColumnIndices() {
-        return columns.uniqueColumnIndices();
-    }
-
     // id
-    
+
     public IdColumn idColumn() {
         if (idColumn == null) {
-            idColumn = new IdColumn(metaData, data, uniqueColumnIndices(), uniqueColumnOrder());
+            idColumn = new IdColumn(metaData, data, columns);
         }
         return idColumn;
     }

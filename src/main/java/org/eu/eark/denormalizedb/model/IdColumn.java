@@ -21,14 +21,19 @@ public class IdColumn {
 
     private final TableMetaData metaData;
     private final TableData data;
+    private final TableColumns columns;
+
     private final int[] uniqueColumnIndices;
     private final int[] uniqueColumnOrder;
 
-    public IdColumn(TableMetaData tableMetaData, TableData rows, int[] uniqueColumnIndices, int[] uniqueColumnOrder) {
+
+    public IdColumn(TableMetaData tableMetaData, TableData rows, TableColumns columns) {
         this.metaData = tableMetaData;
         this.data = rows;
-        this.uniqueColumnIndices = uniqueColumnIndices;
-        this.uniqueColumnOrder = uniqueColumnOrder;
+        this.columns = columns;
+
+        this.uniqueColumnIndices = columns.uniqueColumnIndices();
+        this.uniqueColumnOrder = columns.uniqueColumnOrder();
     }
 
     public String value(int rowIndex) {
