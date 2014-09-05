@@ -39,11 +39,11 @@ Future Ideas
 
 Design
 ------
-- See [src/main/java/org/eu/eark/denormalizedb/model/package-info.java](Model)
+- See [Model](src/main/java/org/eu/eark/denormalizedb/model/package-info.java)
 
 Test Data
 ----------
-- See [src/test/java/org/eu/eark/infrastructure/sqlite/SakilaTest.java](Sakila)
+- See [Sakila](src/test/java/org/eu/eark/infrastructure/sqlite/SakilaTest.java)
 
 Resources
 ---------
