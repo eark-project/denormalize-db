@@ -31,6 +31,7 @@ public class TableWithFKTest extends AbstractTableTestCase {
         table = explode(cityTable);
     }
 
+    // TODO move explode to production code in the end
     private Table explode(Table source) {
         Table target = new Table();
 

@@ -30,8 +30,7 @@ public class ColumnMetaDataTest extends AbstractTableTestCase {
         assertTrue(table.column(2).allValuesUnique());
     }
 
-    // TODO add other meta data like isPK, Type (as enum?), etc.
-    // look into Estonian database what is provided
+    // TODO add other meta data, look into Estonian database what is provided
 
     @Test
     public void shouldKnowItsTableAndColIndex() {
