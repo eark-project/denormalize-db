@@ -37,3 +37,15 @@ Future Ideas
 - send queries to CHX and Solr and HBase parallel and reduce results for user
 - understand other formats like SIARD and EPP and HKI defined one.
 
+Design
+------
+- See [src/main/java/org/eu/eark/denormalizedb/model/package-info.java](Model)
+
+Test Data
+----------
+- See [src/test/java/org/eu/eark/infrastructure/sqlite/SakilaTest.java](Sakila)
+
+Resources
+---------
+- http://hstack.org/hbasecon-low-latency-olap-with-hbase/
+- http://msdn.microsoft.com/en-us/library/cc505841.aspx

@@ -10,6 +10,21 @@ import java.sql.Statement;
 import org.junit.Rule;
 import org.junit.Test;
 
+/**
+ * Sakila.
+ * <p>
+ * To start exploring de-normalising relations I need a simple schema with a few relations. The schema needs to have some data and should be
+ * freely accessible. The Sakila example database was originally developed for MySQL as part of the documentation.
+ * <ul>
+ * <li>Simple Table: `County` only 1 data column.</li>
+ * <li>Foreign Keys: `Address` -> `City` -> `Country`</li>
+ * <li>m2n: `film_category`</li>
+ * </ul>
+ * For testing purpose the SQLite version of Sakila (`sqlite-sakila.sq`) has been added to `src\test\resources`` and is loaded using JDBC in
+ * the tests.
+ * 
+ * @see "https://code.google.com/p/sakila-sample-database-ports/"
+ */
 public class SakilaTest {
 
     @Rule
