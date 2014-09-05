@@ -43,7 +43,7 @@ public class TableColumns implements Iterable<Column> {
         return columns.iterator();
     }
 
-    private int numColumns() {
+    public int numColumns() {
         return tableData.numColumns();
     }
 
@@ -67,14 +67,14 @@ public class TableColumns implements Iterable<Column> {
         return Wrapping.toPrimitive(positions);
     }
 
-    public int[] uniqueColumnIndices() {
+    public List<Integer> uniqueColumnIndices() {
         List<Integer> indices = new ArrayList<Integer>();
         for (int i = 0; i < numColumns(); i++) {
             if (column(i).allValuesUnique()) {
                 indices.add(i);
             }
         }
-        return Wrapping.toPrimitive(indices);
+        return indices;
     }
 
 }

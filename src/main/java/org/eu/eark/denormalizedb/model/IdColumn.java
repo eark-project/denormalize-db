@@ -1,5 +1,8 @@
 package org.eu.eark.denormalizedb.model;
 
+import org.eu.eark.denormalizedb.model.id.DefaultSelector;
+import org.eu.eark.denormalizedb.model.id.IdColumnSelector;
+
 /**
  * A special, derived column that generates String IDs for each table row. The
  * IDs are the values concatenated and sorted by a given order. This is used to
@@ -23,17 +26,19 @@ public class IdColumn {
     private final TableData data;
     private final TableColumns columns;
 
-    private final int[] uniqueColumnIndices;
-    private final int[] uniqueColumnOrder;
-
+    private IdColumnSelector columnSelector;
 
     public IdColumn(TableMetaData tableMetaData, TableData rows, TableColumns columns) {
         this.metaData = tableMetaData;
         this.data = rows;
         this.columns = columns;
 
-        this.uniqueColumnIndices = columns.uniqueColumnIndices();
-        this.uniqueColumnOrder = columns.uniqueColumnOrder();
+        use(new DefaultSelector());
+    }
+
+    public void use(IdColumnSelector selector) {
+        this.columnSelector = selector;
+        selector.set(metaData, columns);
     }
 
     public String value(int rowIndex) {
@@ -41,11 +46,13 @@ public class IdColumn {
 
         StringBuilder buf = new StringBuilder();
         buf.append(metaData.getTableName());
-        for (int i = 0; i < uniqueColumnOrder.length; i++) {
-            int useColumn = uniqueColumnOrder[i];
+        
+        int[] columnsInOrder = columnSelector.columnOrder();
+        
+        for (int i = 0; i < columnsInOrder.length; i++) {
+            int useColumn = columnsInOrder[i];
 
-            if (metaData.column(useColumn).hasFK()) {
-                // do not add FK source because the target is the same
+            if (columnSelector.ignore(useColumn)) {
                 continue;
             }
 

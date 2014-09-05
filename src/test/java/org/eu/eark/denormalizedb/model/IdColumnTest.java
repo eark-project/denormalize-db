@@ -2,7 +2,7 @@ package org.eu.eark.denormalizedb.model;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Ignore;
+import org.eu.eark.denormalizedb.model.id.AllSelector;
 import org.junit.Test;
 
 public class IdColumnTest {
@@ -18,10 +18,12 @@ public class IdColumnTest {
                         withRow(4, "Angola").
                         build();
 
-        assertEquals("country/1/Afghanistan", table.idColumn().value(0));
+        IdColumn idColumn = table.idColumn();
+        idColumn.use(new AllSelector());
+        assertEquals("country/1/Afghanistan", idColumn.value(0));
     }
     
-    @Test @Ignore
+    @Test
     public void shouldUseOnlyOneUniqeColumnInTheBeginningForId() {
         Table table = new TableBuilder().
                 withName("table").
