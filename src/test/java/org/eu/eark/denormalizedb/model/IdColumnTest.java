@@ -9,27 +9,33 @@ public class IdColumnTest {
 
     @Test
     public void shouldUseColumnsForId() {
-        Table table = new Table();
-        table.metaData().setTableName("country");
-
-        ColumnMetaData idColumn = new ColumnMetaData();
-        idColumn.setColumnName("country_id");
-        table.metaData().addColumn(idColumn);
-
-        ColumnMetaData nameColumn = new ColumnMetaData();
-        nameColumn.setColumnName("country");
-        table.metaData().addColumn(nameColumn);
-
-        table.addRow(1, "Afghanistan");
-        table.addRow(2, "Algeria");
-        table.addRow(4, "Angola");
+        Table table = new TableBuilder().
+                        withName("country").
+                        withColumn("country_id").
+                        withColumn("country").
+                        withRow(1, "Afghanistan").
+                        withRow(2, "Algeria").
+                        withRow(4, "Angola").
+                        build();
 
         assertEquals("country/1/Afghanistan", table.idColumn().value(0));
     }
     
     @Test @Ignore
-    public void shouldUseOneUniqeColumnInTheBeginningForId() {
-        // TODO next if there are more unique values, chose one 
+    public void shouldUseOnlyOneUniqeColumnInTheBeginningForId() {
+        Table table = new TableBuilder().
+                withName("table").
+                withColumn("unique_id").
+                withColumn("unique_text").
+                withColumn("non_uniqe").
+                withColumn("unique_sth").
+                withRow(1, "Afghanistan", "a", 'a').
+                withRow(2, "Algeria", "a", 'b').
+                withRow(4, "Angola", "b", 'c').
+                build();
+
+        assertEquals("table/a/Afghanistan", table.idColumn().value(0));
+
         /* 
          * (which one?)
          * if it is > 10 maybe not
