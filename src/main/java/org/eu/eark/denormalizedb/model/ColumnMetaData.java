@@ -10,7 +10,6 @@ public class ColumnMetaData {
     private Reference selfReference;
     private String columnName = DEFAULT_COLUMN_NAME;
     private ColumnDataType type = ColumnDataType.UNKNOWN;
-    private boolean unique; // TODO remove this because it is not true any more after fk explosion and columns meta data is copied around
     private Reference reference;
 
     public String getColumnName() {
@@ -37,14 +36,6 @@ public class ColumnMetaData {
         if (selfReference == null) {
             this.selfReference = new Reference(table, colIndex);
         }
-    }
-
-    public boolean isUnique() {
-        return unique;
-    }
-
-    public void setUnique() {
-        unique = true;
     }
 
     public void references(Table table, int colIndex) {

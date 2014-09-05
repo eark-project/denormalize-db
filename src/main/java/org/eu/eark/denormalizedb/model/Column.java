@@ -30,16 +30,10 @@ public class Column {
     }
 
     public int numUniqueValues() {
-        if (metaData.isUnique()) {
-            return data.size();
-        }
         return analytics.numUniqueValues();
     }
 
     public boolean allValuesUnique() {
-        if (metaData.isUnique()) {
-            return true;
-        }
         return analytics.allValuesUnique();
     }
 

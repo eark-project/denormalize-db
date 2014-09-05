@@ -2,7 +2,6 @@ package org.eu.eark.denormalizedb.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 
@@ -17,17 +16,6 @@ public class ColumnMetaDataTest extends AbstractTableTestCase {
     public void loadCityData() throws SQLException {
         table.metaData().setTableName("city");
         loadSakilaTable(table, "select city_id, city, country_id from city;");
-    }
-
-    @Test
-    public void shouldOverrideUniqueValues() {
-        table.metaDataColumn(0).setUnique();
-        table.metaDataColumn(1).setUnique();
-        table.metaDataColumn(2).setUnique();
-
-        assertTrue(table.column(0).allValuesUnique());
-        assertTrue(table.column(1).allValuesUnique());
-        assertTrue(table.column(2).allValuesUnique());
     }
 
     // TODO add other meta data, look into Estonian database what is provided
