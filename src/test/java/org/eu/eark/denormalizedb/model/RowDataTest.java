@@ -26,13 +26,16 @@ public class RowDataTest {
         RowData joined = rd1.join(rd2);
         assertEquals(1, joined.get(0));
         assertEquals('A', joined.get(1));
+        assertEquals(2, joined.size());
     }
 
     @Test
-    public void shouldJoinSize() {
+    public void shouldJoinRecursively() {
         RowData rd1 = new RowData(new Object[] { 1, 2, 3 });
         RowData rd2 = new RowData(new Object[] { 'A', 'B' });
-        RowData joined = rd1.join(rd2);
-        assertEquals(5, joined.size());
+        RowData rd3 = new RowData(new Object[] { "x" });
+        RowData joined = rd1.join(rd2).join(rd3);
+        assertEquals(6, joined.size());
+        assertEquals("x", joined.get(5));
     }
 }
