@@ -44,6 +44,13 @@ public class TableData implements Iterable<RowData> {
         return rows.size();
     }
 
+    public int numColumns() {
+        if (size() == 0) {
+            throw new IllegalStateException("no rows loaded");
+        }
+        return get(0).size();
+    }
+
     public void join(RowData[] values) {
         if (values.length != size()) {
             throw new IllegalArgumentException("number of values " + values.length + " != number of rows " + size());

@@ -1,12 +1,5 @@
 package org.eu.eark.denormalizedb.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-
-import org.eu.eark.denormalizedb.model.util.Wrapping;
-
 /**
  * A table in a relational schema. A table holds the columns and their meta-data
  * as well as the table's data itself (the "rows").
@@ -15,8 +8,10 @@ public class Table {
 
     private final TableMetaData metaData = new TableMetaData(this);
     private final TableData data = new TableData();
-    private final List<Column> columns = new ArrayList<Column>();
+    private final Columns columns = new Columns(metaData, data);
     private IdColumn idColumn;
+
+    // delegate to the meta data
 
     public TableMetaData metaData() {
         return metaData;
@@ -25,6 +20,8 @@ public class Table {
     public ColumnMetaData metaDataColumn(int colIndex) {
         return metaData.column(colIndex);
     }
+
+    // delegate to the data
 
     public void addRow(RowData values) {
         data.add(values);
@@ -55,61 +52,26 @@ public class Table {
     }
 
     public int numColumns() {
-        if (numRows() == 0) {
-            throw new IllegalStateException("no rows loaded");
-        }
-        return data.get(0).size();
+        return data.numColumns();
     }
+
+    // delegate to columns
 
     public Column column(int index) {
-        if (index >= numColumns()) {
-            throw new ArrayIndexOutOfBoundsException(index);
-        }
-        if (columns.size() <= index) {
-            lazyLoadColumns(index);
-        }
-        return columns.get(index);
+        return columns.column(index);
     }
 
-    private void lazyLoadColumns(int index) {
-        for (int i = columns.size(); i <= index; i++) {
-            columns.add(new Column(metaData.column(i), new ColumnData(data, i)));
-        }
-    }
-
-    /**
-     * Sort columns by number of unique elements. In case of same number, keen
-     * order of columns in table.
-     */
     public int[] uniqueColumnOrder() {
-        final int[] uniqueCounts = new int[numColumns()];
-        Integer[] positions = new Integer[uniqueCounts.length];
-        for (int i = 0; i < uniqueCounts.length; i++) {
-            positions[i] = i;
-            uniqueCounts[i] = column(i).numUniqueValues();
-        }
-        Arrays.sort(positions, new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return Integer.valueOf(uniqueCounts[o1]).compareTo(uniqueCounts[o2]);
-            }
-        });
-        return Wrapping.toPrimitive(positions);
+        return columns.uniqueColumnOrder();
     }
 
     public int[] uniqueColumnIndices() {
-        List<Integer> indices = new ArrayList<Integer>();
-        for (int i = 0; i < numColumns(); i++) {
-            if (column(i).allValuesUnique()) {
-                indices.add(i);
-            }
-        }
-        return Wrapping.toPrimitive(indices);
+        return columns.uniqueColumnIndices();
     }
 
     public IdColumn idColumn() {
         if (idColumn == null) {
-            idColumn = new IdColumn(metaData, data, uniqueColumnOrder());
+            idColumn = new IdColumn(metaData, data, uniqueColumnIndices(), uniqueColumnOrder());
         }
         return idColumn;
     }
