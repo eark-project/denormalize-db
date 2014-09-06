@@ -27,7 +27,16 @@ public class ColumnMetaDataTest extends AbstractTableTestCase {
         assertEquals(0, columnZero.getSelfReference().getColIndex());
     }
 
-    // TODO column should provide a column name and column family for dump
-    // column families might be the originating table, 
-    // but all names must be unique for HBase export for example.
+    @Test
+    public void shouldHaveAName() {
+        ColumnMetaData columnZero = table.metaDataColumn(0);
+        assertEquals("city_id", columnZero.getColumnName());
+    }
+
+    @Test
+    public void shouldHaveAUniqueName() {
+        ColumnMetaData columnZero = table.metaDataColumn(0);
+        assertEquals("city:city_id", columnZero.getUniqueColumnName());
+    }
+
 }

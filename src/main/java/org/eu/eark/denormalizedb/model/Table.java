@@ -18,6 +18,10 @@ public class Table {
         return metaData;
     }
 
+    public String getTableName() {
+        return metaData.getTableName();
+    }
+    
     private void copyMetaDataTo(Table target) {
         metaData.copyTableNameTo(target.metaData());
     }
@@ -126,5 +130,6 @@ public class Table {
     private int[] indicesOfReferencedRows(Object[] keys, int colIndex) {
         return column(colIndex).indexesOf(keys);
     }
+
 
 }

@@ -19,7 +19,7 @@ public class TableMetaData {
     }
 
     public void copyTableNameTo(TableMetaData metaData) {
-        metaData.setTableName(getTableName());
+        metaData.setTableName(tableName);
     }
 
     @Override

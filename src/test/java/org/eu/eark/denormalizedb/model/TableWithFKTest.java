@@ -35,7 +35,7 @@ public class TableWithFKTest extends AbstractTableTestCase {
     public void shouldMarkOutgoingReferenceColumn() {
         ColumnMetaData sourceColumn = table.metaDataColumn(COUNTRY_ID);
         Table referencedTable = sourceColumn.getReference().getTable();
-        String referenceTableName = referencedTable.metaData().getTableName();
+        String referenceTableName = referencedTable.getTableName();
         assertEquals("country", referenceTableName);
     }
 

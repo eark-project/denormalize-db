@@ -36,6 +36,10 @@ public class ColumnMetaData {
         this.selfReference = new Reference(table, colIndex);
     }
 
+    public String getUniqueColumnName() {
+        return selfReference.getTable().getTableName() + ":" + getColumnName();
+    }
+    
     public void references(Table table, int colIndex) {
         reference = new Reference(table, colIndex);
     }
