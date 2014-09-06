@@ -28,40 +28,7 @@ public class TableWithFKTest extends AbstractTableTestCase {
 
         cityTable.metaDataColumn(COUNTRY_ID).references(countryTable, 0);
 
-        table = explode(cityTable);
-    }
-
-    // TODO move explode to production code in the end
-    private Table explode(Table source) {
-        Table target = new Table();
-
-        source.copyTo(target);
-
-        copyAllReferencedData(source, target);
-
-        return target;
-    }
-
-    private void copyAllReferencedData(Table source, Table target) {
-        for (ColumnMetaData cmd : source.metaDataColumns()) {
-            if (cmd.hasFK()) {
-                copyReferencedDataTo(cmd, target);
-            }
-        }
-    }
-
-    private void copyReferencedDataTo(ColumnMetaData cmd, Table target) {
-        Reference reference = cmd.getReference();
-        reference.copyMetaDataColumnsTo(target);
-        
-        Reference source = cmd.getSelfReference();
-        copyAllDataFromReferencedTable(source, reference, target);
-    }
-
-    private void copyAllDataFromReferencedTable(Reference source, Reference reference, Table target) {
-        Object[] keys = source.columnRows();
-        RowData[] values = reference.valuesReferencedBy(keys);
-        target.extendWith(values);
+        table = cityTable.explode();
     }
 
     @Test

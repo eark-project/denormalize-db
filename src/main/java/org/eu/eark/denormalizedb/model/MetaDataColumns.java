@@ -34,4 +34,18 @@ public class MetaDataColumns implements Iterable<ColumnMetaData> {
         return columns.size();
     }
 
+    // de-normalisation
+
+    public void copyColumnsMetaDataTo(TableMetaData target) {
+        for (ColumnMetaData cmd : columns) {
+            target.addColumn(cmd);
+        }
+    }
+
+    public void copyReferencedDataTo(Table target) {
+        for (ColumnMetaData cmd : columns) {
+            cmd.copyReferencedDataTo(target);
+        }
+    }
+
 }

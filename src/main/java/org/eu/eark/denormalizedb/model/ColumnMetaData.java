@@ -33,9 +33,7 @@ public class ColumnMetaData {
     }
 
     public void setSelfReferenceOnce(Table table, int colIndex) {
-        if (selfReference == null) {
-            this.selfReference = new Reference(table, colIndex);
-        }
+        this.selfReference = new Reference(table, colIndex);
     }
 
     public void references(Table table, int colIndex) {
@@ -53,6 +51,22 @@ public class ColumnMetaData {
     @Override
     public String toString() {
         return columnName;
+    }
+
+    // de-normalisation
+
+    public void copyReferencedDataTo(Table target) {
+        if (hasFK()) {
+            reference.copyMetaDataColumnsTo(target);
+            copyAllDataFromReferencedTable(target);
+        }
+    }
+
+    private void copyAllDataFromReferencedTable(Table target) {
+        Reference source = getSelfReference();
+        Object[] keys = source.columnRows();
+        RowData[] values = reference.valuesReferencedBy(keys);
+        target.extendWith(values);
     }
 
 }

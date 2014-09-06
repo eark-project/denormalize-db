@@ -42,11 +42,13 @@ public class TableMetaData {
     }
 
     public void copyColumnsMetaDataTo(TableMetaData target) {
-        for (ColumnMetaData cmd : columns) {
-            target.addColumn(cmd);
-        }
+        columns.copyColumnsMetaDataTo(target);
     }
 
+    public void copyReferencedDataTo(Table target) {
+        columns.copyReferencedDataTo(target);
+    }
+    
     public int numColumns() {
         return columns.size();
     }
