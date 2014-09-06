@@ -45,7 +45,7 @@ public class TableWithFKTest extends AbstractTableTestCase {
     }
 
     private void copyTableName(Table source, Table target) {
-        target.metaData().setTableName(source.metaData().getTableName());
+        source.metaData().copyTableNameTo(target.metaData());
     }
 
     private void copyColumnsMetaData(Table source, Table target) {
@@ -65,19 +65,10 @@ public class TableWithFKTest extends AbstractTableTestCase {
         for (ColumnMetaData cmd : source.metaDataColumns()) {
             if (cmd.hasFK()) {
                 Reference reference = cmd.getReference();
-                copyAllColumnsMetaDataFromReferencedTable(reference, target);
+                reference.copyMetaDataColumnsTo(target);
                 copyAllDataFromReferencedTable(source, colIndex, reference, target);
             }
             colIndex++;
-        }
-    }
-
-    private void copyAllColumnsMetaDataFromReferencedTable(Reference foreignKey, Table target) {
-        Table referencedTable = foreignKey.getTable();
-
-        for (int colIndex = 0; colIndex < referencedTable.numColumns(); colIndex++) {
-            ColumnMetaData cmd = referencedTable.metaDataColumn(colIndex);
-            target.addMetaDataColumn(cmd);
         }
     }
 
@@ -118,8 +109,6 @@ public class TableWithFKTest extends AbstractTableTestCase {
         assertEquals(103, row.get(3)); // country id
         assertEquals("United States", row.get(4)); // country 103 checked
     }
-
-    // TODO new column which has only values that were used, so reduced in size or exploded in size
 
     @Test
     public void shouldIgnoreSecondFKTargetColumnForId() {

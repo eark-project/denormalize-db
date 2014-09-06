@@ -18,6 +18,10 @@ public class TableMetaData {
         this.tableName = tableName;
     }
 
+    public void copyTableNameTo(TableMetaData metaData) {
+        metaData.setTableName(getTableName());
+    }
+
     @Override
     public String toString() {
         return tableName;
@@ -35,6 +39,12 @@ public class TableMetaData {
 
     public MetaDataColumns columns() {
         return columns;
+    }
+
+    public void copyColumnsMetaDataTo(TableMetaData metaData) {
+        for (ColumnMetaData cmd : columns) {
+            metaData.addColumn(cmd);
+        }
     }
 
     public int numColumns() {

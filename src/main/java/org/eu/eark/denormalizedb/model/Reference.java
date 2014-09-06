@@ -21,12 +21,15 @@ public class Reference {
         return colIndex;
     }
 
-    public RowData[] valuesReferencedBy(Object[] fks) {
-        int[] referencedRowsIndices = indicesOfReferencedRows(fks);
-        return table.rows(referencedRowsIndices);
+    // de-normalisation
+    
+    public void copyMetaDataColumnsTo(Table target) {
+        table.copyMetaDataColumnsTo(target);
     }
 
-    private int[] indicesOfReferencedRows(Object[] keys) {
-        return table.column(colIndex).indexesOf(keys);
+    public RowData[] valuesReferencedBy(Object[] fks) {
+        return table.valuesReferencedBy(fks, colIndex);
     }
+
+
 }
