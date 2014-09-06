@@ -35,23 +35,13 @@ public class TableWithFKTest extends AbstractTableTestCase {
     private Table explode(Table source) {
         Table target = new Table();
 
-        copyTableName(source, target);
-        copyColumnsMetaData(source, target);
+        source.copyTableNameTo(target);
+        source.copyColumnsMetaData(target);
         copyRows(source, target);
 
         copyAllReferencedData(source, target);
 
         return target;
-    }
-
-    private void copyTableName(Table source, Table target) {
-        source.metaData().copyTableNameTo(target.metaData());
-    }
-
-    private void copyColumnsMetaData(Table source, Table target) {
-        for (ColumnMetaData cmd : source.metaDataColumns()) {
-            target.addMetaDataColumn(cmd);
-        }
     }
 
     private void copyRows(Table source, Table target) {

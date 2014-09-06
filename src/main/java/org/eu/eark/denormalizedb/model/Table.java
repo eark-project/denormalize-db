@@ -30,7 +30,7 @@ public class Table {
     public MetaDataColumns metaDataColumns() {
         return metaData.columns();
     }
-    
+
     // delegate to the data
 
     public void addRow(RowData values) {
@@ -86,6 +86,10 @@ public class Table {
 
     // de-normalisation
 
+    public void copyTableNameTo(Table target) {
+        metaData.copyTableNameTo(target.metaData());
+    }
+
     public RowData[] valuesReferencedBy(Object[] fks, int inColumn) {
         int[] referencedRowsIndices = indicesOfReferencedRows(fks, inColumn);
         return rows(referencedRowsIndices);
@@ -94,12 +98,9 @@ public class Table {
     private int[] indicesOfReferencedRows(Object[] keys, int colIndex) {
         return column(colIndex).indexesOf(keys);
     }
-    
-    public void copyMetaDataColumnsTo(Table target) {
-        for (int colIndex = 0; colIndex < numColumns(); colIndex++) {
-            ColumnMetaData cmd = metaDataColumn(colIndex);
-            target.addMetaDataColumn(cmd);
-        }
+
+    public void copyColumnsMetaData(Table target) {
+        metaData.copyColumnsMetaDataTo(target.metaData);
     }
-    
+
 }

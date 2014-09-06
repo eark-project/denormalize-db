@@ -41,9 +41,9 @@ public class TableMetaData {
         return columns;
     }
 
-    public void copyColumnsMetaDataTo(TableMetaData metaData) {
+    public void copyColumnsMetaDataTo(TableMetaData target) {
         for (ColumnMetaData cmd : columns) {
-            metaData.addColumn(cmd);
+            target.addColumn(cmd);
         }
     }
 

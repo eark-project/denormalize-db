@@ -24,7 +24,7 @@ public class Reference {
     // de-normalisation
     
     public void copyMetaDataColumnsTo(Table target) {
-        table.copyMetaDataColumnsTo(target);
+        table.copyColumnsMetaData(target);
     }
 
     public RowData[] valuesReferencedBy(Object[] fks) {
