@@ -18,6 +18,10 @@ public class Table {
         return metaData;
     }
 
+    public void copyMetaDataTo(Table target) {
+        metaData.copyTableNameTo(target.metaData());
+    }
+
     public void addMetaDataColumn(ColumnMetaData columnMetaData) {
         columnMetaData.setSelfReferenceOnce(this, metaData.numColumns());
         metaData.addColumn(columnMetaData);
@@ -29,6 +33,10 @@ public class Table {
 
     public MetaDataColumns metaDataColumns() {
         return metaData.columns();
+    }
+
+    public void copyColumnsMetaDataTo(Table target) {
+        metaData.copyColumnsMetaDataTo(target.metaData);
     }
 
     // delegate to the data
@@ -65,6 +73,12 @@ public class Table {
         return data.numColumns();
     }
 
+    public void copyDataTo(Table target) {
+        for (RowData row : data) {
+            target.addRow(row);
+        }
+    }
+
     // delegate to columns
 
     public Column column(int index) {
@@ -86,8 +100,10 @@ public class Table {
 
     // de-normalisation
 
-    public void copyTableNameTo(Table target) {
-        metaData.copyTableNameTo(target.metaData());
+    public void copyTo(Table target) {
+        copyMetaDataTo(target);
+        copyColumnsMetaDataTo(target);
+        copyDataTo(target);
     }
 
     public RowData[] valuesReferencedBy(Object[] fks, int inColumn) {
@@ -97,10 +113,6 @@ public class Table {
 
     private int[] indicesOfReferencedRows(Object[] keys, int colIndex) {
         return column(colIndex).indexesOf(keys);
-    }
-
-    public void copyColumnsMetaData(Table target) {
-        metaData.copyColumnsMetaDataTo(target.metaData);
     }
 
 }

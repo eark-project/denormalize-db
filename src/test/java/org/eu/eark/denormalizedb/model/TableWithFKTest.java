@@ -35,36 +35,32 @@ public class TableWithFKTest extends AbstractTableTestCase {
     private Table explode(Table source) {
         Table target = new Table();
 
-        source.copyTableNameTo(target);
-        source.copyColumnsMetaData(target);
-        copyRows(source, target);
+        source.copyTo(target);
 
         copyAllReferencedData(source, target);
 
         return target;
     }
 
-    private void copyRows(Table source, Table target) {
-        for (RowData row : source.rows()) {
-            target.addRow(row);
-        }
-    }
-
     private void copyAllReferencedData(Table source, Table target) {
-        int colIndex = 0;
         for (ColumnMetaData cmd : source.metaDataColumns()) {
             if (cmd.hasFK()) {
-                Reference reference = cmd.getReference();
-                reference.copyMetaDataColumnsTo(target);
-                copyAllDataFromReferencedTable(source, colIndex, reference, target);
+                copyReferencedDataTo(cmd, target);
             }
-            colIndex++;
         }
     }
 
-    private void copyAllDataFromReferencedTable(Table source, int colIndex, Reference foreignKey, Table target) {
-        Object[] keys = source.column(colIndex).rows();
-        RowData[] values = foreignKey.valuesReferencedBy(keys);
+    private void copyReferencedDataTo(ColumnMetaData cmd, Table target) {
+        Reference reference = cmd.getReference();
+        reference.copyMetaDataColumnsTo(target);
+        
+        Reference source = cmd.getSelfReference();
+        copyAllDataFromReferencedTable(source, reference, target);
+    }
+
+    private void copyAllDataFromReferencedTable(Reference source, Reference reference, Table target) {
+        Object[] keys = source.columnRows();
+        RowData[] values = reference.valuesReferencedBy(keys);
         target.extendWith(values);
     }
 

@@ -21,15 +21,18 @@ public class Reference {
         return colIndex;
     }
 
+    public Object[] columnRows() {
+        return table.column(colIndex).rows();
+    }
+
     // de-normalisation
-    
+
     public void copyMetaDataColumnsTo(Table target) {
-        table.copyColumnsMetaData(target);
+        table.copyColumnsMetaDataTo(target);
     }
 
     public RowData[] valuesReferencedBy(Object[] fks) {
         return table.valuesReferencedBy(fks, colIndex);
     }
-
 
 }
