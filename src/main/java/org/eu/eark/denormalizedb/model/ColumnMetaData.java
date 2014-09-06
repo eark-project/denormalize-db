@@ -45,7 +45,7 @@ public class ColumnMetaData {
     }
 
     public boolean hasFK() {
-        return getReference() != null;
+        return reference != null;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ColumnMetaData {
     }
 
     private void copyAllDataFromReferencedTable(Table target) {
-        Reference source = getSelfReference();
+        Reference source = selfReference;
         Object[] keys = source.columnRows();
         RowData[] values = reference.valuesReferencedBy(keys);
         target.extendWith(values);
