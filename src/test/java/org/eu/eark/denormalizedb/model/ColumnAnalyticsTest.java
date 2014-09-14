@@ -50,6 +50,6 @@ public class ColumnAnalyticsTest extends AbstractTableTestCase {
     // many values have > 1 word -> should index in Solr
 
     // TODO implement analytics for detecting factors/categories/facets
-    // all values are 1 word -> enum/categorisation
+    // all values are 1 word -> enum/categorisation and a number <= 10% total values? 10% is arbitrary.
 
 }

@@ -17,25 +17,21 @@ Next Steps
 - id column
 - try multiple FKs recursive
 
-TODOs
------
-- get archived database format: Estonian buildings database
-- understand given format (XML/CSV) and load
+General TODOs
+-------------
+- get archived database formats, start with Estonian buildings database
+- understand given formats (XML/CSV) and load
 - create data model using given sample data
-- understand foreign keys 
 - experiment with ways to automatically follow foreign keys
-- automatically de-normalise using each table as facts for once
-- and/or create star schema
-- see what we need to have real star schema
 - define requirements for AIP level 2 (Manfred/HKI) to be useful
+- understand other formats like SIARD and EPP and HKI defined one.
 
-Future Ideas
-------------
+Future Ideas for Providing OLAP
+-------------------------------
 - see if zohmg or Mondrian can help analysing the data
 - how to we need to put data into it?
 - maybe run a Mondrian on each node using a different table as facts
 - send queries to CHX and Solr and HBase parallel and reduce results for user
-- understand other formats like SIARD and EPP and HKI defined one.
 
 Design
 ------

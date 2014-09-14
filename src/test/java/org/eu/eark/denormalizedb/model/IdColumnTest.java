@@ -38,17 +38,9 @@ public class IdColumnTest {
 
         assertEquals("table/a/Afghanistan", table.idColumn().value(0));
 
-        /* 
-         * (which one?)
-         * if it is > 10 maybe not
-         * if it is string and <= 10, good, else take numerical
-         */
+         // which fields to take?
+         // if it is > 10 maybe not
+         // if it is string and <= 10, good, else take numerical
     }
-
-
-    // TODO ID Column, if it has too many columns, try to reduce for the key
-
-    // * if there are more non-unique but in not overlapping dimensions, create different variations of id columns = multiple tables
-    // * detect if a unique column is a subset of another unique column and sort these into groups (this is more than just ordering by count)
 
 }

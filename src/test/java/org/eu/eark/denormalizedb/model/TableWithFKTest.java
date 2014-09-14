@@ -47,7 +47,7 @@ public class TableWithFKTest extends AbstractTableTestCase {
         assertEquals(0, newIdColumn.getSelfReference().getColIndex());
     }
 
-    // TODO maybe add meta column info on FK references, e.g. # of total rows used from original table
+    // TODO future addition: add info on FK references, e.g. number of total rows used from original table (e.g. 43% rows used of original 423).
 
     @Test
     public void shouldMergeOriginalAndNewColumnsOfReferencesTable() {

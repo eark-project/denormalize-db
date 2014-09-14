@@ -18,7 +18,7 @@ public class ColumnMetaDataTest extends AbstractTableTestCase {
         loadSakilaTable(table, "select city_id, city, country_id from city;");
     }
 
-    // TODO add other meta data, look into Estonian database what is provided
+    // TODO future addition: add other meta data, look into different archived database formats what is provided there
 
     @Test
     public void shouldKnowItsTableAndColIndex() {
